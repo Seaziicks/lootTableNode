@@ -1,0 +1,7 @@
+.idea
+node_modules/
+.env
+.env_local
+pem_passphrase.txt
+private.key
+public.key
