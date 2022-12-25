@@ -16,7 +16,7 @@ export interface IPersonnage {
     deManaNaturel: number;
 }
 
-export interface IGetPersonnageReq extends Request<{ id: IPersonnage['idPersonnage'] }> {}
+export interface IGetPersonnageReq extends Request<{ idPersonnage: IPersonnage['idPersonnage'] }> {}
 export interface IAddPersonnageReq extends Request{}
-export interface IUpdatePersonnageReq extends Request<{ id: IPersonnage['idPersonnage'] }, any, IPersonnage>{}
-export interface IDeletePersonnageReq extends Request<{ id: IPersonnage['idPersonnage'] }>{}
+export interface IUpdatePersonnageReq extends Request<{ idPersonnage: IPersonnage['idPersonnage'] }, any, IPersonnage>{}
+export interface IDeletePersonnageReq extends Request<{ idPersonnage: IPersonnage['idPersonnage'] }>{}

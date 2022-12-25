@@ -11,7 +11,7 @@ import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
 /**
  * Get active item records
  *
- * @param req ILoginReq
+ * @param req IUserLoginReq
  * @param res Express Response
  */
 // @ts-ignore
@@ -21,7 +21,7 @@ export const userLogin: RequestHandler = async (req: IUserLoginReq, res: Respons
         if (!queryParams.username || !queryParams.password)
             throw new MissingLoginInfoError("Username ou mot de passe manquant.");
         // console.log("username/password :", queryParams);
-        const user = await UserService.getUserByUsernameAndPassword(queryParams.username as string, queryParams.password as string) as unknown as IUser[];
+        const user = await UserService.getUserByUsernameAndPassword(queryParams.username as string, queryParams.password as string);
         // console.log("user :", user[0]);
 
         if (!user[0])

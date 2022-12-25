@@ -23,6 +23,8 @@ class Item implements IItem{
     public bonusDexteriteMax: number;
     public malusArmureTests: number;
     public risqueEchecSorts: string;
+    public solidite: number;
+    public resistance: number;
     public afficherNom: boolean;
     public afficherEffetMagique: boolean;
     public afficherMalediction: boolean;
@@ -94,12 +96,12 @@ class Item implements IItem{
     constructor(idObjet?: number, idPersonnage?: number, nom?: string, fauxNom?: string, bonus?: number, type?: string, prix?: number,
                 prixNonHumanoide?: number, devise?: string, idMalediction?: number, categorie?: string, idMateriaux?: number,
                 taille?: string, degats?: string, critique?: string, facteurPortee?: string, armure?: number, bonusDexteriteMax?: number,
-                malusArmureTests?: number, risqueEchecSorts?: string, afficherNom?: boolean, afficherEffetMagique?: boolean,
+                malusArmureTests?: number, risqueEchecSorts?: string, solidite?: number, resistance?: number, afficherNom?: boolean, afficherEffetMagique?: boolean,
                 afficherMalediction?: boolean, afficherMateriau?: boolean, afficherInfos?: boolean)
     constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
                 prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
                 taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-                malusArmureTests: number, risqueEchecSorts: string, afficherNom: boolean, afficherEffetMagique: boolean,
+                malusArmureTests: number, risqueEchecSorts: string, solidite: number, resistance: number, afficherNom: boolean, afficherEffetMagique: boolean,
                 afficherMalediction: boolean, afficherMateriau: boolean, afficherInfos: boolean) {
         this.idObjet = idObjet;
         this.idPersonnage = idPersonnage;
@@ -121,6 +123,8 @@ class Item implements IItem{
         this.bonusDexteriteMax = bonusDexteriteMax;
         this.malusArmureTests = malusArmureTests;
         this.risqueEchecSorts = risqueEchecSorts;
+        this.solidite = solidite;
+        this.resistance = resistance;
         this.afficherNom = afficherNom;
         this.afficherEffetMagique = afficherEffetMagique;
         this.afficherMalediction = afficherMalediction;
@@ -150,6 +154,8 @@ class Item implements IItem{
             bonusDexteriteMax: this.bonusDexteriteMax,
             malusArmureTests: this.malusArmureTests,
             risqueEchecSorts: this.risqueEchecSorts,
+            solidite: this.solidite,
+            resistance: this.resistance,
             afficherNom: this.afficherNom,
             afficherEffetMagique: this.afficherEffetMagique,
             afficherMalediction: this.afficherMalediction,

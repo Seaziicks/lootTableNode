@@ -1,0 +1,27 @@
+TODO en cours :
+    - Finir les items :
+        - A faire :
+            - Récupérer le nom d'un item grâce à l'ID.
+        - Déjà fini :
+            - Récupérer uniquement les noms de tous les objets d'un joueur.
+            - Récupérer uniquement les ids de tous les objets d'un joueur.
+            - Récupérer tous les items.
+            - Récupérer 1 item grâce à l'ID.
+            - Ajouter un item.
+            - Update un item grâce à l'ID.
+            - Update le faux nom d'un item par ID.
+            - Supprimer un item par ID.
+
+
+TODO Global:
+    - Finir les items.
+    - Finir les personnages.
+    - Finir les users.
+    - Faire les competences.
+    - Faire les loots.
+    - Faire les monstres. => Faire les familles avec.
+    - Faire les niveaux / statistiques / montées de niveau.
+    - Faire les matériaux / malédictions.
+    - Faire les drop chances (?).
+    - Vérifier la connexion.
+    - Gérer la description que chaque personnage peut donner aux items, avec effetMagiqueDecouvert.php.

@@ -21,6 +21,8 @@ export interface IItem {
     bonusDexteriteMax: number;
     malusArmureTests: number;
     risqueEchecSorts: string;
+    solidite: number;
+    resistance: number;
     afficherNom: boolean;
     afficherEffetMagique: boolean;
     afficherMalediction: boolean;
@@ -28,7 +30,7 @@ export interface IItem {
     afficherInfos: boolean;
 }
 
-export interface IGetItemReq extends Request<{ id: IItem['idObjet'] }> {}
+export interface IGetItemReq extends Request<{ idObjet: IItem['idObjet'] }> {}
 export interface IAddItemReq extends Request{}
-export interface IUpdateItemReq extends Request<{ id: IItem['idObjet'] }, any, IItem>{}
-export interface IDeleteItemReq extends Request<{ id: IItem['idObjet'] }>{}
+export interface IUpdateItemReq extends Request<{ idObjet: IItem['idObjet'] }, any, IItem>{}
+export interface IDeleteItemReq extends Request<{ idObjet: IItem['idObjet'] }>{}

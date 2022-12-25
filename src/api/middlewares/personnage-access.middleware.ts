@@ -53,7 +53,7 @@ export const isSameItemOwner = () => async (req: IGetItemReq, res: Response, nex
 
         // verify token hasn't expired yet
         const decodedToken = await validateToken(jwt);
-        const item = await ItemService.getItemById(req.params.id);
+        const item = await ItemService.getItemById(req.params.idObjet);
         const ownerId = item[0].idPersonnage;
 
         if (!(ownerId === decodedToken.personnage.idPersonnage) && !decodedToken.isAdmin && !decodedToken.isGameMaster) {

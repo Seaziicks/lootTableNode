@@ -6,5 +6,5 @@ import {UserQueries} from "./user.queries";
  * gets active items
  */
 export const getUserByUsernameAndPassword = async (username: string, password: string) => {
-    return execute<IUser>(UserQueries.GetUserByUsernameAndPassword, [username, password]);
+    return execute<IUser[]>(UserQueries.GetUserByUsernameAndPassword, [username, password]);
 };

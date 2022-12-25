@@ -13,7 +13,7 @@ import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
 // @ts-ignore
 export const getPersonnageById: RequestHandler = async (req: IGetPersonnageReq, res: Response) => {
     try {
-        const personnage = await PersonnageService.getPersonnageById(req.params.id);
+        const personnage = await PersonnageService.getPersonnageById(req.params.idPersonnage);
 
         sendSpecialResponse(res,
             200,

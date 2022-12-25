@@ -45,8 +45,8 @@ export const insertItem = async (item: IItem) => {
     const result = await execute<{ affectedRows: number }>(ItemQueries.AddItem, [
         item.idPersonnage, item.nom, item.fauxNom, item.bonus, item.type, item.prix, item.prixNonHumanoide, item.devise,
         item.idMalediction, item.categorie, item.idMateriaux, item.taille, item.degats, item.critique, item.facteurPortee,
-        item.armure, item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.afficherNom,
-        item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos
+        item.armure, item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.solidite, item.resistance,
+        item.afficherNom, item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos
     ]);
     return result.affectedRows > 0;
 };
@@ -58,8 +58,8 @@ export const updateItem = async (item: IItem) => {
     const result = await execute<{ affectedRows: number }>(ItemQueries.UpdateItemById, [
         item.idPersonnage, item.nom, item.fauxNom, item.bonus, item.type, item.prix, item.prixNonHumanoide, item.devise,
         item.idMalediction, item.categorie, item.idMateriaux, item.taille, item.degats, item.critique, item.facteurPortee,
-        item.armure, item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.afficherNom,
-        item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos,
+        item.armure, item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.solidite, item.resistance,
+        item.afficherNom, item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos,
         item.idObjet
     ]);
     return result.affectedRows > 0;

@@ -36,16 +36,16 @@ export const ItemQueries = {
     AddItem:
         `INSERT INTO objet (idPersonnage, nom, fauxNom, bonus, type, prix, prixNonHumanoide, devise, idMalediction,
                             categorie, idMateriaux, taille, degats, critique, facteurPortee, armure, bonusDexteriteMax,
-                            malusArmureTests, risqueEchecSorts, afficherNom, afficherEffetMagique, afficherMalediction,
-                            afficherMateriau, afficherInfos)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+                            malusArmureTests, risqueEchecSorts, solidite, resistance, afficherNom, afficherEffetMagique,
+                            afficherMalediction, afficherMateriau, afficherInfos)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
 
     UpdateItemById:
         `UPDATE objet
             SET idPersonnage = ?, nom = ?, fauxNom = ?, bonus = ?, type = ?, prix = ?, prixNonHumanoide = ?, devise = ?,
             categorie = ?, taille = ?, degats = ?, critique = ?, facteurPortee = ?, armure = ?, bonusDexteriteMax = ?,
-            malusArmureTests = ?, risqueEchecSorts = ?, afficherNom = ?, afficherEffetMagique = ?, afficherMalediction = ?,
-            afficherMateriau = ?, afficherInfos = ?
+            malusArmureTests = ?, risqueEchecSorts = ?, solidite = ?, resistance = ?, afficherNom = ?,
+            afficherEffetMagique = ?, afficherMalediction = ?, afficherMateriau = ?, afficherInfos = ?
             WHERE idObjet = ?`,
 
   UpdateItemFakeNameById:

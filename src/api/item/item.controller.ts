@@ -23,9 +23,10 @@ export const getItems: RequestHandler = async (req: Request, res: Response) => {
 
         const items = await ItemService.getItems();
 
-        res.status(200).json({
-            items
-        });
+        sendSpecialResponse(res,
+            200,
+            "Ça fait beaucoup, mais voici tout notre catalogue.",
+            items);
     } catch (error) {
         console.error('[items.controller][getItems][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when fetching items");
@@ -41,11 +42,12 @@ export const getItems: RequestHandler = async (req: Request, res: Response) => {
 // @ts-ignore
 export const getItemById: RequestHandler = async (req: IGetItemReq, res: Response) => {
     try {
-        const item = await ItemService.getItemById(req.params.id);
+        const item = await ItemService.getItemById(req.params.idObjet);
 
-        res.status(200).json({
-            item
-        });
+        sendSpecialResponse(res,
+            200,
+            "Je vous le fais à un prix d'ami !",
+            item);
     } catch (error) {
         console.error('[items.controller][getItemById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when fetching item");
@@ -68,11 +70,11 @@ export const getItemsForPersonnage: RequestHandler = async (req: IGetPersonnageR
         let items;
         let status_message: string;
         if (queryParams.nameOnly && ((queryParams.nameOnly+'').toLowerCase() === 'true')) {
-            items = await ItemService.getItemsNamesForPersonnage(req.params.id);
+            items = await ItemService.getItemsNamesForPersonnage(req.params.idPersonnage);
             status_message = 'Voici les noms que vous avez commandé.';
         } else if (queryParams.idsOnly && ((queryParams.idsOnly+'').toLowerCase() === 'true')) {
-            items = await ItemService.getItemsIdsForPersonnage(req.params.id);
-            status_message = 'Voici les identifiants de tous nos produits concernant cette référence.';
+            items = await ItemService.getItemsIdsForPersonnage(req.params.idPersonnage);
+            status_message = 'Voici les identifiants de tous nos produits concernant cette catégorie.';
         } else
             throw new CustomErrors.BadQueryParameterError("Les items accessibles par idPersonnage ont besoin du paramètre nameOnly ou idsOnly a la valeur true");
 
@@ -106,9 +108,10 @@ export const addItem: RequestHandler = async (req: IAddItemReq, res: Response) =
     try {
         const result = await ItemService.insertItem(req.body);
 
-        res.status(200).json({
-            result
-        });
+        sendSpecialResponse(res,
+            201,
+            "Oué ... on va s'occuper de ça, vous voulez bien ?.",
+            result);
     } catch (error) {
         console.error('[items.controller][addItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when adding new item");
@@ -124,11 +127,12 @@ export const addItem: RequestHandler = async (req: IAddItemReq, res: Response) =
 // @ts-ignore
 export const updateItemById: RequestHandler = async (req: IUpdateItemReq, res: Response) => {
     try {
-        const result = await ItemService.updateItem({ ...req.body, idObjet: req.params.id });
+        const result = await ItemService.updateItem({ ...req.body, idObjet: req.params.idObjet });
 
-        res.status(200).json({
-            result
-        });
+        sendSpecialResponse(res,
+            200,
+            "Je me disais bien que celui-ci était étrange.",
+            result);
     } catch (error) {
         console.error('[items.controller][updateItemById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when updating item");
@@ -144,11 +148,12 @@ export const updateItemById: RequestHandler = async (req: IUpdateItemReq, res: R
 // @ts-ignore
 export const updateItemFakeNameById: RequestHandler = async (req: IUpdateItemReq, res: Response) => {
     try {
-        const result = await ItemService.updateItemFakeName({ ...req.body, idObjet: req.params.id });
+        const result = await ItemService.updateItemFakeName({ ...req.body, idObjet: req.params.idObjet });
 
-        res.status(200).json({
-            result
-        });
+        sendSpecialResponse(res,
+            200,
+            "En même temps, vu la tête qu'il avait !.",
+            result);
     } catch (error) {
         console.error('[items.controller][updateItemFakeNameById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when updating item fake name");
@@ -164,7 +169,7 @@ export const updateItemFakeNameById: RequestHandler = async (req: IUpdateItemReq
 // @ts-ignore
 export const deleteItemById: RequestHandler = async (req: IDeleteItemReq, res: Response) => {
     try {
-        const result = await ItemService.deleteItem(req.params.id);
+        const result = await ItemService.deleteItem(req.params.idObjet);
 
         res.status(200).json({
             result
