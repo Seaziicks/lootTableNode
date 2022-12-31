@@ -19,7 +19,7 @@ const router = Router();
 router.route('/:idEffetMagique').get(getEffetMagiqueById);
 router.route('/:idEffetMagique').get(getCompleteEffetMagiqueById);
 router.route('/getAllEffetsMagiquesForItem/:idObjet').get(getAllEffetMagiqueForItem);
-router.route('/getAllEffetsMagiquesForItem/:idObjet').get(getAllCompleteEffetMagiqueForItem);
+router.route('/getAllCompleteEffetMagiqueForItem/:idObjet').get(getAllCompleteEffetMagiqueForItem);
 router.route('/').post(addEffetMagique);
 router.route('/addCompleteEffetMagique').post(addCompleteEffetMagique);
 router.route('/:idEffetMagique').put(updateEffetMagique);
