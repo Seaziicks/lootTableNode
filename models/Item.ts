@@ -1,8 +1,14 @@
 import {
     IItem
 } from '../src/api/item/item.model';
+import {IMalediction} from "../src/api/malediction/malediction.model";
+import {IMateriau} from "../src/api/materiau/materiau.model";
+import {getMateriauById} from "../src/api/materiau/materiau.service";
+import {getMaledictionById} from "../src/api/malediction/malediction.service";
+import {IEffetMagique} from "../src/api/effetMagique/effetMagique.model";
+import {getAllCompleteEffetMagiqueForItem} from "../src/api/effetMagique/effetMagique.service";
 
-class Item implements IItem{
+class Item implements IItem {
     public idObjet: number;
     public idPersonnage: number;
     public nom: string;
@@ -13,8 +19,10 @@ class Item implements IItem{
     public prixNonHumanoide: number;
     public devise: string;
     public idMalediction: number;
+    public malediction: IMalediction;
     public categorie: string;
     public idMateriaux: number;
+    public materiau: IMateriau;
     public taille: string;
     public degats: string;
     public critique: string;
@@ -30,79 +38,18 @@ class Item implements IItem{
     public afficherMalediction: boolean;
     public afficherMateriau: boolean;
     public afficherInfos: boolean;
+    public effetMagique: IEffetMagique[];
 
-    // constructor()
-    // constructor(idObjet: number)
-    // constructor(idObjet: number, idPersonnage: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number, risqueEchecSorts: string)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number, risqueEchecSorts: string, afficherNom: boolean)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number, risqueEchecSorts: string, afficherNom: boolean, afficherEffetMagique: boolean)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number, risqueEchecSorts: string, afficherNom: boolean, afficherEffetMagique: boolean,
-    //             afficherMalediction: boolean)
-    // constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-    //             prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
-    //             taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
-    //             malusArmureTests: number, risqueEchecSorts: string, afficherNom: boolean, afficherEffetMagique: boolean,
-    //             afficherMalediction: boolean, afficherMateriau: boolean)
-    constructor(idObjet?: number, idPersonnage?: number, nom?: string, fauxNom?: string, bonus?: number, type?: string, prix?: number,
-                prixNonHumanoide?: number, devise?: string, idMalediction?: number, categorie?: string, idMateriaux?: number,
-                taille?: string, degats?: string, critique?: string, facteurPortee?: string, armure?: number, bonusDexteriteMax?: number,
-                malusArmureTests?: number, risqueEchecSorts?: string, solidite?: number, resistance?: number, afficherNom?: boolean, afficherEffetMagique?: boolean,
-                afficherMalediction?: boolean, afficherMateriau?: boolean, afficherInfos?: boolean)
+
     constructor(idObjet: number, idPersonnage: number, nom: string, fauxNom: string, bonus: number, type: string, prix: number,
-                prixNonHumanoide: number, devise: string, idMalediction: number, categorie: string, idMateriaux: number,
+                prixNonHumanoide: number, devise: string, idMalediction: number, malediction: IMalediction, categorie: string, idMateriaux: number, materiau: IMateriau,
                 taille: string, degats: string, critique: string, facteurPortee: string, armure: number, bonusDexteriteMax: number,
                 malusArmureTests: number, risqueEchecSorts: string, solidite: number, resistance: number, afficherNom: boolean, afficherEffetMagique: boolean,
-                afficherMalediction: boolean, afficherMateriau: boolean, afficherInfos: boolean) {
+                afficherMalediction: boolean, afficherMateriau: boolean, afficherInfos: boolean, effetMagique: IEffetMagique[]) {
+        if (typeof malediction === 'undefined' || typeof materiau === 'undefined' || typeof effetMagique === 'undefined') {
+            // https://stackoverflow.com/questions/43431550/async-await-class-constructor
+            throw new Error('This constructor cannot be called directly with undefined malediction, materiau or effetMagique. Please call build() function.');
+        }
         this.idObjet = idObjet;
         this.idPersonnage = idPersonnage;
         this.nom = nom;
@@ -113,8 +60,10 @@ class Item implements IItem{
         this.prixNonHumanoide = prixNonHumanoide;
         this.devise = devise;
         this.idMalediction = idMalediction;
+        this.malediction = malediction;
         this.categorie = categorie;
         this.idMateriaux = idMateriaux;
+        this.materiau = materiau;
         this.taille = taille;
         this.degats = degats;
         this.critique = critique;
@@ -130,9 +79,25 @@ class Item implements IItem{
         this.afficherMalediction = afficherMalediction;
         this.afficherMateriau = afficherMateriau;
         this.afficherInfos = afficherInfos;
+        this.effetMagique = effetMagique;
     }
 
-    getJsonObject(): Object {
+    // https://stackoverflow.com/questions/43431550/async-await-class-constructor
+    static async build(item: IItem) {
+
+        const materiau = (await getMateriauById(item.idMateriaux))[0] || null;
+        // console.log(materiau);
+        const malediction = (await getMaledictionById(item.idMalediction))[0] || null;
+        // console.log(malediction);
+        const effetsMagiques = (await getAllCompleteEffetMagiqueForItem(item.idObjet)) || null;
+        // console.log(effetMagique);
+        return new Item(item.idObjet, item.idPersonnage, item.nom, item.fauxNom, item.bonus, item.type, item.prix, item.prixNonHumanoide, item.devise, item.idMalediction,
+            malediction, item.categorie, item.idMateriaux, materiau, item.taille, item.degats, item.critique, item.facteurPortee, item.armure,
+            item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.solidite, item.resistance, item.afficherNom,
+            item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos, effetsMagiques);
+    }
+
+    castToItemInterface(): IItem {
         return {
             idObjet: this.idObjet,
             idPersonnage: this.idPersonnage,
@@ -163,7 +128,6 @@ class Item implements IItem{
             afficherInfos: this.afficherInfos,
         }
     }
-
 }
 
 export default Item;
