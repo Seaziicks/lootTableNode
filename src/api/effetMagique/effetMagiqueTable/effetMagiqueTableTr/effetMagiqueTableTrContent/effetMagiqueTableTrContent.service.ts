@@ -17,9 +17,9 @@ export const getAllTrContentForEffetMagiqueTableTr = async (idEffetMagiqueTableT
 /**
  * adds a new effetMagiqueTrContent, a new content to effet magique table tr
  */
-export const addEffetMagiqueTableTrContent = async (item: IEffetMagiqueTableTrContent) => {
+export const addEffetMagiqueTableTrContent = async (effetMagiqueTableTrContent: IEffetMagiqueTableTrContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTrContentQueries.AddEffetMagiqueTableTrContent, [
-        item.idEffetMagiqueTableTr, item.contenu
+        effetMagiqueTableTrContent.idEffetMagiqueTableTr, effetMagiqueTableTrContent.contenu
     ]);
     return result.affectedRows > 0;
 };
@@ -27,9 +27,9 @@ export const addEffetMagiqueTableTrContent = async (item: IEffetMagiqueTableTrCo
 /**
  * updates effet magique table tr content content based on the id provided
  */
-export const updateEffetMagiqueTableTrContent = async (item: IEffetMagiqueTableTrContent) => {
+export const updateEffetMagiqueTableTrContent = async (effetMagiqueTableTrContent: IEffetMagiqueTableTrContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTrContentQueries.UpdateEffetMagiqueTableTrContent, [
-        item.idEffetMagiqueTableTr, item.contenu, item.idEffetMagiqueTableTrContent
+        effetMagiqueTableTrContent.idEffetMagiqueTableTr, effetMagiqueTableTrContent.contenu, effetMagiqueTableTrContent.idEffetMagiqueTableTrContent
     ]);
     return result.affectedRows > 0;
 };

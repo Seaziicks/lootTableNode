@@ -1,12 +1,10 @@
 import {RequestHandler, Response} from "express";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
-import * as EffetMagiqueUtils from "../utils/effetMagique.utils";
 import * as MaledictionService from "./malediction.service";
 import {
     IAddMaledictionReq,
     IDeleteMaledictionReq,
     IGetMaledictionReq,
-    IMalediction,
     IUpdateMaledictionReq
 } from "./malediction.model";
 
@@ -20,12 +18,12 @@ import {
 export const getMaledictionById: RequestHandler = async (req: IGetMaledictionReq, res: Response) => {
     try {
 
-        const effetMagiqueDescription = await MaledictionService.getMaledictionById(req.params.idMalediction);
+        const malediction = await MaledictionService.getMaledictionById(req.params.idMalediction);
 
         sendSpecialResponse(res,
             200,
             "Alors, ça vous plait ? Moi oui !",
-            effetMagiqueDescription);
+            malediction);
     } catch (error) {
         console.error('[malediction.controller][getMalediction][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when fetching items");

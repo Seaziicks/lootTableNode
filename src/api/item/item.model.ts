@@ -31,6 +31,6 @@ export interface IItem {
 }
 
 export interface IGetItemReq extends Request<{ idObjet: IItem['idObjet'] }> {}
-export interface IAddItemReq extends Request{}
-export interface IUpdateItemReq extends Request<{ idObjet: IItem['idObjet'] }, any, IItem>{}
-export interface IDeleteItemReq extends Request<{ idObjet: IItem['idObjet'] }>{}
+export interface IAddItemReq extends Request {}
+export interface IUpdateItemReq extends Request<{ idObjet: IItem['idObjet'] }, any, IItem> {}
+export interface IDeleteItemReq extends Request<{ idObjet: IItem['idObjet'] }> {}

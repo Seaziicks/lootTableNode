@@ -13,9 +13,9 @@ export const getMaledictionById = async (idMalediction: IMalediction['idMaledict
 /**
  * adds a new effetMagiqueDescription, a new description to effet magique
  */
-export const addMalediction = async (item: IMalediction) => {
+export const addMalediction = async (malediction: IMalediction) => {
     const result = await execute<{ affectedRows: number }>(MaledictionQueries.AddMalediction, [
-        item.nom, item.description
+        malediction.nom, malediction.description
     ]);
     return result.affectedRows > 0;
 };
@@ -23,9 +23,9 @@ export const addMalediction = async (item: IMalediction) => {
 /**
  * updates effet magique description based on the id provided
  */
-export const updateMalediction = async (item: IMalediction) => {
+export const updateMalediction = async (malediction: IMalediction) => {
     const result = await execute<{ affectedRows: number }>(MaledictionQueries.UpdateMaledictionById, [
-        item.nom, item.description, item.idMalediction
+        malediction.nom, malediction.description, malediction.idMalediction
     ]);
     return result.affectedRows > 0;
 };

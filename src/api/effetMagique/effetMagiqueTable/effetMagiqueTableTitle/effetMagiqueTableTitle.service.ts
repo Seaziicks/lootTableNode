@@ -36,19 +36,19 @@ export const getAllCompleteTitleForEffetMagiqueTable = async (idEffetMagiqueTabl
 /**
  * adds a new effetMagiqueTableTitle, a new line to effet magique table
  */
-export const addEffetMagiqueTableTitle = async (item: IEffetMagiqueTableTitle) => {
+export const addEffetMagiqueTableTitle = async (effetMagiqueTableTitle: IEffetMagiqueTableTitle) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTitleQueries.AddEffetMagiqueTableTitle, [
-        item.idEffetMagiqueTable
+        effetMagiqueTableTitle.idEffetMagiqueTable
     ]);
     return result.affectedRows > 0;
 };
 
-export const addCompleteEffetMagiqueTableTitle = async (item: IEffetMagiqueTableTitle) => {
+export const addCompleteEffetMagiqueTableTitle = async (effetMagiqueTableTitle: IEffetMagiqueTableTitle) => {
     const result = await execute<{ affectedRows: number, insertId: number }>(EffetMagiqueTableTitleQueries.AddEffetMagiqueTableTitle, [
-        item.idEffetMagiqueTable
+        effetMagiqueTableTitle.idEffetMagiqueTable
     ]);
     // console.log(result);
-    for (const tableTitleContent of item.titleContents) {
+    for (const tableTitleContent of effetMagiqueTableTitle.titleContents) {
         tableTitleContent.idEffetMagiqueTableTitle = result.insertId;
         const insertedContent = await addEffetMagiqueTableTitleContent(tableTitleContent);
         if (!insertedContent) {
@@ -61,9 +61,9 @@ export const addCompleteEffetMagiqueTableTitle = async (item: IEffetMagiqueTable
 /**
  * updates effet magique table title based on the id provided
  */
-export const updateEffetMagiqueTableTitle = async (item: IEffetMagiqueTableTitle) => {
+export const updateEffetMagiqueTableTitle = async (effetMagiqueTableTitle: IEffetMagiqueTableTitle) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTitleQueries.UpdateEffetMagiqueTableTitle, [
-        item.idEffetMagiqueTable, item.idEffetMagiqueTableTitle
+        effetMagiqueTableTitle.idEffetMagiqueTable, effetMagiqueTableTitle.idEffetMagiqueTableTitle
     ]);
     return result.affectedRows > 0;
 };

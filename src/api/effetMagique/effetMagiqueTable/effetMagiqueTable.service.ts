@@ -3,9 +3,6 @@ import {execute} from "../../utils/mysql.connector";
 import {EffetMagiqueTableQueries} from "./effetMagiqueTable.queries";
 import {IEffetMagique} from "../effetMagique.model";
 import {IEffetMagiqueTable} from "./effetMagiqueTable.model";
-import {IEffetMagiqueUl} from "../effetMagiqueUl/effetMagiqueUl.model";
-import {EffetMagiqueUlQueries} from "../effetMagiqueUl/effetMagiqueUl.queries";
-import {addEffetMagiqueUlContent} from "../effetMagiqueUl/effetMagiqueUlContent/effetMagiqueUlContent.service";
 import {
     addCompleteEffetMagiqueTableTr,
     getAllCompleteTrForEffetMagiqueTable
@@ -14,9 +11,6 @@ import {
     addCompleteEffetMagiqueTableTitle,
     getAllCompleteTitleForEffetMagiqueTable
 } from "./effetMagiqueTableTitle/effetMagiqueTableTitle.service";
-import {IEffetMagiqueTableTr} from "./effetMagiqueTableTr/effetMagiqueTableTr.model";
-import {EffetMagiqueTableTrQueries} from "./effetMagiqueTableTr/effetMagiqueTableTr.queries";
-import {getAllTrContentForEffetMagiqueTableTr} from "./effetMagiqueTableTr/effetMagiqueTableTrContent/effetMagiqueTableTrContent.service";
 
 /**
  * gets effet magique ul  by id
@@ -49,26 +43,26 @@ export const getAllCompleteTableForEffetMagique = async (idEffetMagique: IEffetM
 /**
  * adds a new effetMagiqueTable, a new list to effet magique
  */
-export const addEffetMagiqueTable = async (item: IEffetMagiqueTable) => {
+export const addEffetMagiqueTable = async (effetMagiqueTable: IEffetMagiqueTable) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableQueries.AddEffetMagiqueTable, [
-        item.idEffetMagique, item.position
+        effetMagiqueTable.idEffetMagique, effetMagiqueTable.position
     ]);
     return result.affectedRows > 0;
 };
 
-export const addCompleteEffetMagiqueTable = async (item: IEffetMagiqueTable) => {
+export const addCompleteEffetMagiqueTable = async (effetMagiqueTable: IEffetMagiqueTable) => {
     const result = await execute<{ affectedRows: number, insertId: number }>(EffetMagiqueTableQueries.AddEffetMagiqueTable, [
-        item.idEffetMagique, item.position
+        effetMagiqueTable.idEffetMagique, effetMagiqueTable.position
     ]);
     // console.log(result);
-    for (const tableTitles of item.titles) {
+    for (const tableTitles of effetMagiqueTable.titles) {
         tableTitles.idEffetMagiqueTable = result.insertId;
         const insertedContent = await addCompleteEffetMagiqueTableTitle(tableTitles);
         if (!insertedContent) {
             throw new Error("[addCompleteEffetMagiqueTable] : One of the title went badly")
         }
     }
-    for (const tableTrs of item.trs) {
+    for (const tableTrs of effetMagiqueTable.trs) {
         tableTrs.idEffetMagiqueTable = result.insertId;
         const insertedContent = await addCompleteEffetMagiqueTableTr(tableTrs);
         if (!insertedContent) {
@@ -81,9 +75,9 @@ export const addCompleteEffetMagiqueTable = async (item: IEffetMagiqueTable) => 
 /**
  * updates effet magique ul based on the id provided
  */
-export const updateEffetMagiqueTable = async (item: IEffetMagiqueTable) => {
+export const updateEffetMagiqueTable = async (effetMagiqueTable: IEffetMagiqueTable) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableQueries.UpdateEffetMagiqueTable, [
-        item.idEffetMagique, item.position, item.idEffetMagiqueTable
+        effetMagiqueTable.idEffetMagique, effetMagiqueTable.position, effetMagiqueTable.idEffetMagiqueTable
     ]);
     return result.affectedRows > 0;
 };
@@ -101,9 +95,9 @@ export const deleteEffetMagiqueTable = async (idEffetMagiqueTable: IEffetMagique
 /**
  * updates table position when a description displayed before is deleted.
  */
-export const updateEffetMagiqueTablePosition = async (item: IEffetMagiqueDescription, position: number) => {
+export const updateEffetMagiqueTablePosition = async (effetMagiqueTable: IEffetMagiqueDescription, position: number) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableQueries.UpdateEffetMagiqueTablePosition, [
-        item.idEffetMagique, position
+        effetMagiqueTable.idEffetMagique, position
     ]);
     return result.affectedRows > 0;
 };

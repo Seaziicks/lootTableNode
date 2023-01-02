@@ -37,19 +37,19 @@ export const getAllCompleteUlForEffetMagique = async (idEffetMagique: IEffetMagi
 /**
  * adds a new effetMagiqueUl, a new list to effet magique
  */
-export const addEffetMagiqueUl = async (item: IEffetMagiqueUl) => {
+export const addEffetMagiqueUl = async (effetMagiqueUl: IEffetMagiqueUl) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueUlQueries.AddEffetMagiqueUl, [
-        item.idEffetMagique, item.position
+        effetMagiqueUl.idEffetMagique, effetMagiqueUl.position
     ]);
     return result.affectedRows > 0;
 };
 
-export const addCompleteEffetMagiqueUl = async (item: IEffetMagiqueUl) => {
+export const addCompleteEffetMagiqueUl = async (effetMagiqueUl: IEffetMagiqueUl) => {
     const result = await execute<{ affectedRows: number, insertId: number }>(EffetMagiqueUlQueries.AddEffetMagiqueUl, [
-        item.idEffetMagique, item.position
+        effetMagiqueUl.idEffetMagique, effetMagiqueUl.position
     ]);
     // console.log(result);
-    for (const ulContent of item.lis) {
+    for (const ulContent of effetMagiqueUl.lis) {
         ulContent.idEffetMagiqueUl = result.insertId;
         const insertedContent = await addEffetMagiqueUlContent(ulContent);
         if (!insertedContent) {
@@ -62,9 +62,9 @@ export const addCompleteEffetMagiqueUl = async (item: IEffetMagiqueUl) => {
 /**
  * updates effet magique ul based on the id provided
  */
-export const updateEffetMagiqueUl = async (item: IEffetMagiqueUl) => {
+export const updateEffetMagiqueUl = async (effetMagiqueUl: IEffetMagiqueUl) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueUlQueries.UpdateEffetMagiqueUl, [
-        item.idEffetMagique, item.position, item.idEffetMagiqueUl
+        effetMagiqueUl.idEffetMagique, effetMagiqueUl.position, effetMagiqueUl.idEffetMagiqueUl
     ]);
     return result.affectedRows > 0;
 };
@@ -82,9 +82,9 @@ export const deleteEffetMagiqueUl = async (idEffetMagiqueUl: IEffetMagiqueUl['id
 /**
  * updates ul position when a description displayed before is deleted.
  */
-export const updateEffetMagiqueUlPosition = async (item: IEffetMagiqueDescription, position: number) => {
+export const updateEffetMagiqueUlPosition = async (effetMagiqueUl: IEffetMagiqueDescription, position: number) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueUlQueries.UpdateEffetMagiqueUlPosition, [
-        item.idEffetMagique, position
+        effetMagiqueUl.idEffetMagique, position
     ]);
     return result.affectedRows > 0;
 };

@@ -3,6 +3,10 @@ export const PersonnageQueries = {
         `SELECT *
          FROM personnage `,
 
+    GetPersonnagesIds:
+        `SELECT idPersonnage
+         FROM personnage`,
+
     GetPersonnageById:
         `SELECT *
          FROM personnage
@@ -17,22 +21,18 @@ export const PersonnageQueries = {
 
     AddPersonnage:
         `INSERT INTO personnage (nom, niveau, niveauEnAttente, deVitaliteNaturelle, deManaNaturel) 
-         VALUES (?, ?, ?, ?, ?);`,
+         VALUES (?, ?, ?, ?, ?)`,
 
-    UpdatePersonnage:
+    UpdatePersonnageById:
         `UPDATE personnage 
          SET nom = ?, niveau = ?, niveauEnAttente = ?, deVitaliteNaturelle = ?, deManaNaturel = ?
          WHERE idPersonnage = ?`,
 
 
-    DeletePersonnage: `DELETE FROM user WHERE idPersonnage = ?`,
-
-    GetAllStatistiquesForPersonnage:
-        `SELECT s.libelle, m.valeur
-         FROM personnage as p, monte as m, statistique as s
-         WHERE m.idPersonnage = ?
-         AND m.idStatistique = s.idStatistique
-         AND m.idPersonnage = p.idPersonnage`,
+    DeletePersonnageById:
+        `DELETE
+         FROM personnage
+         WHERE idPersonnage = ?`,
 
     GetPersonnagesAvailable:
         `SELECT *

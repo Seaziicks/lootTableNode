@@ -27,7 +27,7 @@ export const getEffetMagiqueById: RequestHandler = async (req: IGetEffetMagiqueR
             effetMagique);
     } catch (error) {
         console.error('[effetMagique.controller][getEffetMagiqueById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when fetching items");
+        classicalSpecialResponseError500(res, "There was an error when fetching an effet magique by id");
     }
 };
 
@@ -43,7 +43,7 @@ export const getCompleteEffetMagiqueById: RequestHandler = async (req: IGetEffet
             effetMagique);
     } catch (error) {
         console.error('[effetMagique.controller][getCompleteEffetMagiqueById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when fetching items");
+        classicalSpecialResponseError500(res, "There was an error when fetching a complete effet magic by id");
     }
 };
 
@@ -66,7 +66,7 @@ export const getAllEffetMagiqueForItem: RequestHandler = async (req: IGetItemReq
             effetMagiques);
     } catch (error) {
         console.error('[effetMagique.controller][getAllEffetMagiqueForItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when fetching items");
+        classicalSpecialResponseError500(res, "There was an error when fetching all effet magique for an item");
     }
 }
 
@@ -82,7 +82,7 @@ export const getAllCompleteEffetMagiqueForItem: RequestHandler = async (req: IGe
             effetMagiques);
     } catch (error) {
         console.error('[effetMagique.controller][getAllCompleteEffetMagiqueForItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when fetching items");
+        classicalSpecialResponseError500(res, "There was an error when adding a new effet magique for an item");
     }
 }
 
@@ -102,7 +102,7 @@ export const addEffetMagique: RequestHandler = async (req: IAddEffetMagiqueReq, 
             result);
     } catch (error) {
         console.error('[effetMagique.controller][addEffetMagique][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when adding new item");
+        classicalSpecialResponseError500(res, "There was an error when adding a new effet magique");
     }
 };
 
@@ -122,7 +122,7 @@ export const addCompleteEffetMagique: RequestHandler = async (req: IAddEffetMagi
             result);
     } catch (error) {
         console.error('[effetMagique.controller][addCompleteEffetMagique][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when adding new item");
+        classicalSpecialResponseError500(res, "There was an error when adding a new complete effet magique");
     }
 };
 
@@ -143,7 +143,7 @@ export const updateEffetMagique: RequestHandler = async (req: IUpdateEffetMagiqu
             result);
     } catch (error) {
         console.error('[effetMagique.controller][updateEffetMagique][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when adding new item");
+        classicalSpecialResponseError500(res, "There was an error when updating an effet magique");
     }
 };
 
@@ -164,6 +164,6 @@ export const deleteEffetMagique: RequestHandler = async (req: IDeleteEffetMagiqu
             result);
     } catch (error) {
         console.error('[effetMagique.controller][deleteEffetMagique][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
-        classicalSpecialResponseError500(res, "There was an error when adding new item");
+        classicalSpecialResponseError500(res, "There was an error when deleting an effet magique");
     }
 };

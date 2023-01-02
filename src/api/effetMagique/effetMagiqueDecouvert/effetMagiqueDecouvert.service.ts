@@ -5,7 +5,7 @@ import {EffetMagiqueDecouvertQueries} from "./effetMagiqueDecouvert.queries";
 import {execute} from "../../utils/mysql.connector";
 
 /**
- * gets effet magique description
+ * gets effet magique decouvert
  */
 export const getEffetMagiqueDecouvertById = async (idEffetMagiqueDecouvert: IEffetMagiqueDecouvert['idEffetMagiqueDecouvert']) => {
     return execute<IEffetMagiqueDecouvert[]>(EffetMagiqueDecouvertQueries.GetEffetMagiqueDecouvertById, [idEffetMagiqueDecouvert]);
@@ -20,27 +20,27 @@ export const getAllEffetMagiqueDecouvertForItem = async (idObjet: IItem['idObjet
 };
 
 /**
- * adds a new effetMagiqueDecouvert, a new description to effet magique
+ * adds a new effetMagiqueDecouvert, a new decouvert to effet magique
  */
-export const addEffetMagiqueDecouvert = async (item: IEffetMagiqueDecouvert) => {
+export const addEffetMagiqueDecouvert = async (effetMagiqueDecouvert: IEffetMagiqueDecouvert) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueDecouvertQueries.AddEffetMagiqueDecouvert, [
-        item.idPersonnage, item.idObjet, item.effet
+        effetMagiqueDecouvert.idPersonnage, effetMagiqueDecouvert.idObjet, effetMagiqueDecouvert.effet
     ]);
     return result.affectedRows > 0;
 };
 
 /**
- * updates effet magique description based on the id provided
+ * updates effet magique decouvert based on the id provided
  */
-export const updateEffetMagiqueDecouvert = async (item: IEffetMagiqueDecouvert) => {
+export const updateEffetMagiqueDecouvert = async (effetMagiqueDecouvert: IEffetMagiqueDecouvert) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueDecouvertQueries.UpdateEffetMagiqueDecouvert, [
-        item.effet, item.idEffetMagiqueDecouvert
+        effetMagiqueDecouvert.effet, effetMagiqueDecouvert.idEffetMagiqueDecouvert
     ]);
     return result.affectedRows > 0;
 };
 
 /**
- * delete effet magique description based on the id provided
+ * delete effet magique decouvert based on the id provided
  */
 export const deleteEffetMagiqueDecouvert = async (idEffetMagiqueDecouvert: IEffetMagiqueDecouvert['idEffetMagiqueDecouvert']) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueDecouvertQueries.DeleteEffetMagiqueDecouvert, [

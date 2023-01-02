@@ -17,9 +17,9 @@ export const getAllTitleContentForEffetMagiqueTableTitle = async (idEffetMagique
 /**
  * adds a new effetMagiqueTitleContent, a new content to effet magique table title
  */
-export const addEffetMagiqueTableTitleContent = async (item: IEffetMagiqueTableTitleContent) => {
+export const addEffetMagiqueTableTitleContent = async (effetMagiqueTableTitleContent: IEffetMagiqueTableTitleContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTitleContentQueries.AddEffetMagiqueTableTitleContent, [
-        item.idEffetMagiqueTableTitle, item.contenu
+        effetMagiqueTableTitleContent.idEffetMagiqueTableTitle, effetMagiqueTableTitleContent.contenu
     ]);
     return result.affectedRows > 0;
 };
@@ -27,9 +27,9 @@ export const addEffetMagiqueTableTitleContent = async (item: IEffetMagiqueTableT
 /**
  * updates effet magique table title content based on the id provided
  */
-export const updateEffetMagiqueTableTitleContent = async (item: IEffetMagiqueTableTitleContent) => {
+export const updateEffetMagiqueTableTitleContent = async (effetMagiqueTableTitleContent: IEffetMagiqueTableTitleContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTitleContentQueries.UpdateEffetMagiqueTableTitleContent, [
-        item.idEffetMagiqueTableTitle, item.contenu, item.idEffetMagiqueTableTitleContent
+        effetMagiqueTableTitleContent.idEffetMagiqueTableTitle, effetMagiqueTableTitleContent.contenu, effetMagiqueTableTitleContent.idEffetMagiqueTableTitleContent
     ]);
     return result.affectedRows > 0;
 };

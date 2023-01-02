@@ -17,9 +17,9 @@ export const getAllUlContentForEffetMagiqueUl = async (idEffetMagiqueUl: IEffetM
 /**
  * adds a new effetMagiqueUlContent, a new content (line) to effet magique ul
  */
-export const addEffetMagiqueUlContent = async (item: IEffetMagiqueUlContent) => {
+export const addEffetMagiqueUlContent = async (effetMagiqueUlContent: IEffetMagiqueUlContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueUlContentQueries.AddEffetMagiqueUlContent, [
-        item.idEffetMagiqueUl, item.contenu
+        effetMagiqueUlContent.idEffetMagiqueUl, effetMagiqueUlContent.contenu
     ]);
     return result.affectedRows > 0;
 };
@@ -27,9 +27,9 @@ export const addEffetMagiqueUlContent = async (item: IEffetMagiqueUlContent) => 
 /**
  * updates effet magique ul content based on the id provided
  */
-export const updateEffetMagiqueUlContent = async (item: IEffetMagiqueUlContent) => {
+export const updateEffetMagiqueUlContent = async (effetMagiqueUlContent: IEffetMagiqueUlContent) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueUlContentQueries.UpdateEffetMagiqueUlContent, [
-        item.idEffetMagiqueUl, item.contenu, item.idEffetMagiqueUlContent
+        effetMagiqueUlContent.idEffetMagiqueUl, effetMagiqueUlContent.contenu, effetMagiqueUlContent.idEffetMagiqueUlContent
     ]);
     return result.affectedRows > 0;
 };

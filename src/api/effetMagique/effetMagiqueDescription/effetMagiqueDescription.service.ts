@@ -17,9 +17,9 @@ export const getAllDescriptionForEffetMagique = async (idEffetMagique: IEffetMag
 /**
  * adds a new effetMagiqueDescription, a new description to effet magique
  */
-export const addEffetMagiqueDescription = async (item: IEffetMagiqueDescription) => {
+export const addEffetMagiqueDescription = async (effetMagiqueDescription: IEffetMagiqueDescription) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueDescriptionQueries.AddEffetMagiqueDescription, [
-        item.idEffetMagique, item.contenu
+        effetMagiqueDescription.idEffetMagique, effetMagiqueDescription.contenu
     ]);
     return result.affectedRows > 0;
 };
@@ -27,9 +27,9 @@ export const addEffetMagiqueDescription = async (item: IEffetMagiqueDescription)
 /**
  * updates effet magique description based on the id provided
  */
-export const updateEffetMagiqueDescription = async (item: IEffetMagiqueDescription) => {
+export const updateEffetMagiqueDescription = async (effetMagiqueDescription: IEffetMagiqueDescription) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueDescriptionQueries.UpdateEffetMagiqueDescription, [
-        item.idEffetMagique, item.contenu, item.idEffetMagiqueDescription
+        effetMagiqueDescription.idEffetMagique, effetMagiqueDescription.contenu, effetMagiqueDescription.idEffetMagiqueDescription
     ]);
     return result.affectedRows > 0;
 };

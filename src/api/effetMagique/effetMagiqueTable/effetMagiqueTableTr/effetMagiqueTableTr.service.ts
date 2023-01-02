@@ -36,19 +36,19 @@ export const getAllCompleteTrForEffetMagiqueTable = async (idEffetMagiqueTable: 
 /**
  * adds a new effetMagiqueTableTr, a new line to effet magique table
  */
-export const addEffetMagiqueTableTr = async (item: IEffetMagiqueTableTr) => {
+export const addEffetMagiqueTableTr = async (effetMagiqueTableTr: IEffetMagiqueTableTr) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTrQueries.AddEffetMagiqueTableTr, [
-        item.idEffetMagiqueTable
+        effetMagiqueTableTr.idEffetMagiqueTable
     ]);
     return result.affectedRows > 0;
 };
 
-export const addCompleteEffetMagiqueTableTr = async (item: IEffetMagiqueTableTr) => {
+export const addCompleteEffetMagiqueTableTr = async (effetMagiqueTableTr: IEffetMagiqueTableTr) => {
     const result = await execute<{ affectedRows: number, insertId: number }>(EffetMagiqueTableTrQueries.AddEffetMagiqueTableTr, [
-        item.idEffetMagiqueTable
+        effetMagiqueTableTr.idEffetMagiqueTable
     ]);
     // console.log(result);
-    for (const tableTrContent of item.trContents) {
+    for (const tableTrContent of effetMagiqueTableTr.trContents) {
         tableTrContent.idEffetMagiqueTableTr = result.insertId;
         const insertedContent = await addEffetMagiqueTableTrContent(tableTrContent);
         if (!insertedContent) {
@@ -61,9 +61,9 @@ export const addCompleteEffetMagiqueTableTr = async (item: IEffetMagiqueTableTr)
 /**
  * updates effet magique table tr based on the id provided
  */
-export const updateEffetMagiqueTableTr = async (item: IEffetMagiqueTableTr) => {
+export const updateEffetMagiqueTableTr = async (effetMagiqueTableTr: IEffetMagiqueTableTr) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueTableTrQueries.UpdateEffetMagiqueTableTr, [
-        item.idEffetMagiqueTable, item.idEffetMagiqueTableTr
+        effetMagiqueTableTr.idEffetMagiqueTable, effetMagiqueTableTr.idEffetMagiqueTableTr
     ]);
     return result.affectedRows > 0;
 };
