@@ -1,5 +1,4 @@
 import {
-    IItem,
     IGetItemReq,
     IAddItemReq,
     IUpdateItemReq,
@@ -9,7 +8,6 @@ import * as ItemService from './item.servive';
 import {RequestHandler, Request, Response} from "express";
 import {IGetPersonnageReq} from "../personnage/personnage.model";
 import * as CustomErrors from "../utils/customErrors";
-import {updateItemFakeName} from "./item.servive";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
 
 /**
@@ -55,6 +53,27 @@ export const getItemById: RequestHandler = async (req: IGetItemReq, res: Respons
 };
 
 /**
+ * Get item record based on id provided
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */
+// @ts-ignore
+export const getItemNameOnlyById: RequestHandler = async (req: IGetItemReq, res: Response) => {
+    try {
+        const item = await ItemService.getItemNameOnlyById(req.params.idObjet);
+
+        sendSpecialResponse(res,
+            200,
+            "Vous vouliez savoir ce qu'il fait ? Eh bien il faudra payer bien plus !",
+            item);
+    } catch (error) {
+        console.error('[items.controller][getItemNameOnlyById][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
+        classicalSpecialResponseError500(res, "There was an error when fetching item");
+    }
+};
+
+/**
  * Get all item ids for a personnage based on idPersonnage provided
  *
  * @param req Express Request
@@ -75,8 +94,14 @@ export const getItemsForPersonnage: RequestHandler = async (req: IGetPersonnageR
         } else if (queryParams.idsOnly && ((queryParams.idsOnly+'').toLowerCase() === 'true')) {
             items = await ItemService.getItemsIdsForPersonnage(req.params.idPersonnage);
             status_message = 'Voici les identifiants de tous nos produits concernant cette catégorie.';
-        } else
-            throw new CustomErrors.BadQueryParameterError("Les items accessibles par idPersonnage ont besoin du paramètre nameOnly ou idsOnly a la valeur true");
+        } else {
+            // throw new CustomErrors.BadQueryParameterError("Les items accessibles par idPersonnage ont besoin du paramètre nameOnly ou idsOnly a la valeur true");
+            sendSpecialResponse(res,
+                400,
+                "Les items accessibles par idPersonnage ont besoin du paramètre nameOnly ou idsOnly a la valeur true",
+                '');
+            return;
+        }
 
         sendSpecialResponse(res,
             200,
@@ -99,7 +124,7 @@ export const getItemsForPersonnage: RequestHandler = async (req: IGetPersonnageR
 
 
 /**
- * Inserts a new item record based
+ * Inserts a new item record
  *
  * @param req Express Request
  * @param res Express Response
@@ -114,6 +139,26 @@ export const addItem: RequestHandler = async (req: IAddItemReq, res: Response) =
             result);
     } catch (error) {
         console.error('[items.controller][addItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
+        classicalSpecialResponseError500(res, "There was an error when adding new item");
+    }
+};
+
+/**
+ * Inserts a new complete item record, with effetmagique, materiau & malediction.
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */
+export const addCompleteItem: RequestHandler = async (req: IAddItemReq, res: Response) => {
+    try {
+        const result = await ItemService.addCompleteItem(req.body);
+
+        sendSpecialResponse(res,
+            201,
+            "Eh bien, vous voulez vraiment stocker ce déchet, et toute la crasse qui va avec ?",
+            result);
+    } catch (error) {
+        console.error('[items.controller][addCompleteItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when adding new item");
     }
 };
@@ -179,3 +224,25 @@ export const deleteItemById: RequestHandler = async (req: IDeleteItemReq, res: R
         classicalSpecialResponseError500(res, "There was an error when deleting item");
     }
 };
+
+/**
+ * Gets an item, complete with materiau, malediction & effetMagique fulfilled
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */
+// @ts-ignore
+export const getCompleteItem: RequestHandler = async (req: IGetItemReq, res: Response) => {
+    try {
+        const result = await ItemService.getCompleteItem(req.params.idObjet);
+
+        res.status(200).json({
+            result
+        });
+    } catch (error) {
+        console.log(error)
+        console.error('[items.controller][getCompleteItem][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
+        classicalSpecialResponseError500(res, "There was an error when getting complete item");
+    }
+};
+
