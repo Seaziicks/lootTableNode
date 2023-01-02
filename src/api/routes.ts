@@ -1,4 +1,4 @@
-import { Request, Response, Router } from 'express';
+import { Response, Router } from 'express';
 import ItemRoutes from './item/item.routes';
 import EffetMagiqueRoutes from './effetMagique/effetMagique.routes';
 import UserRoutes from './user/user.routes';
@@ -20,7 +20,7 @@ router.use('/personnage', /* A faire */ PersonnageRoutes);
 router.use('/competence', /* A faire */ CompetenceRoutes);
 router.use('/monstre', /* A faire */ MonstreRoutes);
 router.use('/loot', /* A faire */ LootRoutes);
-router.use('/niveau', /* A faire */ NiveauRoutes);
+router.use('/level', /* A faire */ NiveauRoutes);
 router.use('/materiau', /* A faire */ MateriauRoutes);
 
 export const sendSpecialResponse = (res: Response, status: number, status_message: string, data: any) => {
