@@ -7,29 +7,34 @@ import Personnage from "../../../models/Personnage";
 /**
  * gets active personnages
  */
-export const getPersonnages = async () => {
+export const getAllPersonnages = async () => {
     return execute<IPersonnage[]>(PersonnageQueries.GetPersonnages, []);
+};
+
+/**
+ * gets active personnages
+ */
+export const getAllPersonnagesWithStatistics = async () => {
+    const personnages = await execute<IPersonnage[]>(PersonnageQueries.GetPersonnagesIds, []);
+    const allPersonnagesWithStatistiques: Personnage[] = [];
+    for (let personnage of personnages) {
+        allPersonnagesWithStatistiques.push(await Personnage.getPersonnageWithStatistiquesFromIdPersonnage(personnage.idPersonnage));
+    }
+    return allPersonnagesWithStatistiques;
 };
 
 /**
  * Gets a personnage based on id provided
  */
-export const getPersonnageById = async (id: IPersonnage['idPersonnage']) => {
-    return execute<IPersonnage[]>(PersonnageQueries.GetPersonnageById, [id]);
+export const getPersonnageById = async (idPersonnage: IPersonnage['idPersonnage']) => {
+    return execute<IPersonnage[]>(PersonnageQueries.GetPersonnageById, [idPersonnage]);
 };
 
 /**
  * Gets a personnage based on user id provided
  */
-export const getPersonnageByUserId = async (id: IUser['idUser']) => {
-    return execute<Personnage[]>(PersonnageQueries.GetPersonnageByIdUser, [id]);
-};
-
-/**
- * Gets a personnage based on user id provided
- */
-export const getAllStatistiquesForPersonnage = async (id: IPersonnage['idPersonnage']) => {
-    return execute<Statistique[]>(PersonnageQueries.GetAllStatistiquesForPersonnage, [id]);
+export const getPersonnageByUserId = async (idUser: IUser['idUser']) => {
+    return execute<Personnage[]>(PersonnageQueries.GetPersonnageByIdUser, [idUser]);
 };
 
 /*
@@ -39,22 +44,33 @@ export const getPersonnagesAvailable = async () => {
     return execute<Personnage[]>(PersonnageQueries.GetPersonnagesAvailable, []);
 }
 
+/**
+ * adds a new active personnage record
+ */
+export const addPersonnage = async (personnage: IPersonnage) => {
+    const result = await execute<{ affectedRows: number }>(PersonnageQueries.AddPersonnage, [
+        personnage.nom, personnage.niveau, personnage.niveauEnAttente, personnage.deManaNaturel, personnage.deVitaliteNaturelle
+    ]);
+    return result.affectedRows > 0;
+};
 
-export interface Statistique {
-    libelle: string;
-    valeur: number;
-}
+/**
+ * updates personnage based on the id provided
+ */
+export const updatePersonnage = async (personnage: IPersonnage) => {
+    const result = await execute<{ affectedRows: number }>(PersonnageQueries.UpdatePersonnageById, [
+        personnage.nom, personnage.niveau, personnage.niveauEnAttente, personnage.deVitaliteNaturelle, personnage.deManaNaturel,
+        personnage.idPersonnage
+    ]);
+    return result.affectedRows > 0;
+};
 
-interface IObjectKeys {
-    [key: string]: number;
-}
-
-export interface IStatistiques extends IObjectKeys{
-    intelligence: number;
-    agilite: number;
-    force: number;
-    sagesse: number;
-    constitution: number;
-    vitalite: number;
-    mana: number;
-}
+/**
+ * delete personnage based on the id provided
+ */
+export const deletePersonnage = async (idPersonnage: IPersonnage['idPersonnage']) => {
+    const result = await execute<{ affectedRows: number }>(PersonnageQueries.DeletePersonnageById, [
+        idPersonnage
+    ]);
+    return result.affectedRows > 0;
+};
