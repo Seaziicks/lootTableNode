@@ -4,7 +4,7 @@ import {execute} from "../utils/mysql.connector";
 import {EffetMagiqueQueries} from "./effetMagique.queries";
 import {
     addCompleteEffetMagiqueUl,
-    addEffetMagiqueUl,
+    getAllCompleteUlForEffetMagique,
     getAllUlForEffetMagique
 } from "./effetMagiqueUl/effetMagiqueUl.service";
 import {
@@ -13,13 +13,10 @@ import {
 } from "./effetMagiqueDescription/effetMagiqueDescription.service";
 import {
     addCompleteEffetMagiqueTable,
-    addEffetMagiqueTable,
+    getAllCompleteTableForEffetMagique,
     getAllTableForEffetMagique
 } from "./effetMagiqueTable/effetMagiqueTable.service";
 import {addEffetMagiqueInfos, getAllInfosForEffetMagique} from "./effetMagiqueInfos/effetMagiqueInfos.service";
-import {IEffetMagiqueUl} from "./effetMagiqueUl/effetMagiqueUl.model";
-import {EffetMagiqueUlQueries} from "./effetMagiqueUl/effetMagiqueUl.queries";
-import {addEffetMagiqueUlContent} from "./effetMagiqueUl/effetMagiqueUlContent/effetMagiqueUlContent.service";
 
 /**
  * gets effet magique
@@ -44,31 +41,33 @@ export const getCompleteEffetMagiqueById = async (idEffetMagique: IEffetMagique[
 
 export const getAllCompleteEffetMagiqueForItem = async (idObjet: IItem['idObjet']) => {
     const effetsMagiques = await execute<IEffetMagique[]>(EffetMagiqueQueries.GetAllEffetMagiqueForItem, [idObjet]);
+    // console.log(effetsMagiques);
     for (const effetMagique of effetsMagiques) {
         effetMagique.effetMagiqueDescription = await getAllDescriptionForEffetMagique(effetMagique.idEffetMagique);
-        effetMagique.effetMagiqueTable = await getAllTableForEffetMagique(effetMagique.idEffetMagique);
-        effetMagique.effetMagiqueUl = await getAllUlForEffetMagique(effetMagique.idEffetMagique);
+        effetMagique.effetMagiqueTable = await getAllCompleteTableForEffetMagique(effetMagique.idEffetMagique);
+        effetMagique.effetMagiqueUl = await getAllCompleteUlForEffetMagique(effetMagique.idEffetMagique);
         effetMagique.effetMagiqueInfos = await getAllInfosForEffetMagique(effetMagique.idEffetMagique);
     }
+    // console.log(effetsMagiques);
     return effetsMagiques;
 }
 
 /**
  * adds a new effet magique
  */
-export const addEffetMagique = async (item: IEffetMagique) => {
+export const addEffetMagique = async (effetMagique: IEffetMagique) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueQueries.AddEffetMagique, [
-        item.idObjet, item.title
+        effetMagique.idObjet, effetMagique.title
     ]);
     return result.affectedRows > 0;
 };
 
-export const addCompleteEffetMagique = async (item: IEffetMagique) => {
+export const addCompleteEffetMagique = async (effetMagique: IEffetMagique) => {
     const result = await execute<{ affectedRows: number, insertId: number }>(EffetMagiqueQueries.AddEffetMagique, [
-        item.idObjet, item.title
+        effetMagique.idObjet, effetMagique.title
     ]);
     // console.log(result);
-    for (const description of item.effetMagiqueDescription) {
+    for (const description of effetMagique.effetMagiqueDescription) {
         description.idEffetMagique = result.insertId;
         const insertedContent = await addEffetMagiqueDescription(description);
         if (!insertedContent) {
@@ -76,7 +75,7 @@ export const addCompleteEffetMagique = async (item: IEffetMagique) => {
         }
     }
 
-    for (const table of item.effetMagiqueTable) {
+    for (const table of effetMagique.effetMagiqueTable) {
         table.idEffetMagique = result.insertId;
         const insertedContent = await addCompleteEffetMagiqueTable(table);
         if (!insertedContent) {
@@ -84,7 +83,7 @@ export const addCompleteEffetMagique = async (item: IEffetMagique) => {
         }
     }
 
-    for (const ul of item.effetMagiqueUl) {
+    for (const ul of effetMagique.effetMagiqueUl) {
         ul.idEffetMagique = result.insertId;
         const insertedContent = await addCompleteEffetMagiqueUl(ul);
         if (!insertedContent) {
@@ -92,7 +91,7 @@ export const addCompleteEffetMagique = async (item: IEffetMagique) => {
         }
     }
 
-    for (const infos of item.effetMagiqueInfos) {
+    for (const infos of effetMagique.effetMagiqueInfos) {
         infos.idEffetMagique = result.insertId;
         const insertedContent = await addEffetMagiqueInfos(infos);
         if (!insertedContent) {
@@ -106,9 +105,9 @@ export const addCompleteEffetMagique = async (item: IEffetMagique) => {
 /**
  * updates effet magique based on the id provided
  */
-export const updateEffetMagique = async (item: IEffetMagique) => {
+export const updateEffetMagique = async (effetMagique: IEffetMagique) => {
     const result = await execute<{ affectedRows: number }>(EffetMagiqueQueries.UpdateEffetMagique, [
-        item.idObjet, item.title, item.idEffetMagique
+        effetMagique.idObjet, effetMagique.title, effetMagique.idEffetMagique
     ]);
     return result.affectedRows > 0;
 };
