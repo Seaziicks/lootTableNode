@@ -7,15 +7,16 @@ import {
     updateEffetMagiqueUl
 } from "./effetMagiqueUl.controller";
 import EffetMagiqueUlContentRoutes from "./effetMagiqueUlContent/effetMagiqueUlContent.routes";
+import * as Auth from "../../middlewares/auth.middleware";
 
 const router = Router();
 
-router.route('/:idEffetMagiqueUl').get(getEffetMagiqueUlById);
-router.route('/getAllUlForEffetMagique/:idEffetMagique').get(getAllUlForEffetMagique);
-router.route('/').post(addEffetMagiqueUl);
-router.route('/addCompleteEffetMagiqueUl').post(addCompleteEffetMagiqueUl);
-router.route('/:idEffetMagiqueUl').put(updateEffetMagiqueUl);
-router.route('/:idEffetMagiqueUl').delete(deleteEffetMagiqueUl);
+router.route('/:idEffetMagiqueUl').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getEffetMagiqueUlById);
+router.route('/getAllUlForEffetMagique/:idEffetMagique').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllUlForEffetMagique);
+router.route('/').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addEffetMagiqueUl);
+router.route('/addCompleteEffetMagiqueUl').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addCompleteEffetMagiqueUl);
+router.route('/:idEffetMagiqueUl').put(Auth.authorize(Auth.AccessRights.GAME_MASTER), updateEffetMagiqueUl);
+router.route('/:idEffetMagiqueUl').delete(Auth.authorize(Auth.AccessRights.GAME_MASTER), deleteEffetMagiqueUl);
 
 router.use('/content', EffetMagiqueUlContentRoutes);
 

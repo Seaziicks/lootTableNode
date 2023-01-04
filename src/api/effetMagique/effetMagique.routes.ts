@@ -12,18 +12,19 @@ import {
     getCompleteEffetMagiqueById,
     getEffetMagiqueById, updateEffetMagique
 } from "./effetMagique.controller";
+import * as Auth from "../middlewares/auth.middleware";
 
 const router = Router();
 
 // Partie Effet Magique
-router.route('/:idEffetMagique').get(getEffetMagiqueById);
-router.route('/:idEffetMagique').get(getCompleteEffetMagiqueById);
-router.route('/getAllEffetsMagiquesForItem/:idObjet').get(getAllEffetMagiqueForItem);
-router.route('/getAllCompleteEffetMagiqueForItem/:idObjet').get(getAllCompleteEffetMagiqueForItem);
-router.route('/').post(addEffetMagique);
-router.route('/addCompleteEffetMagique').post(addCompleteEffetMagique);
-router.route('/:idEffetMagique').put(updateEffetMagique);
-router.route('/:idEffetMagique').delete(deleteEffetMagique);
+router.route('/:idEffetMagique').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getEffetMagiqueById);
+router.route('/:idEffetMagique').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getCompleteEffetMagiqueById);
+router.route('/getAllEffetsMagiquesForItem/:idObjet').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllEffetMagiqueForItem);
+router.route('/getAllCompleteEffetMagiqueForItem/:idObjet').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllCompleteEffetMagiqueForItem);
+router.route('/').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addEffetMagique);
+router.route('/addCompleteEffetMagique').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addCompleteEffetMagique);
+router.route('/:idEffetMagique').put(Auth.authorize(Auth.AccessRights.GAME_MASTER), updateEffetMagique);
+router.route('/:idEffetMagique').delete(Auth.authorize(Auth.AccessRights.GAME_MASTER), deleteEffetMagique);
 
 // Partie de Effet Magique Description
 router.use('/description', EffetMagiqueDescriptionRoutes);

@@ -4,13 +4,14 @@ import {
     getAllInfosForEffetMagique,
     getEffetMagiqueInfoById, updateEffetMagiqueInfos
 } from "./effetMagiqueInfos.controller";
+import * as Auth from "../../middlewares/auth.middleware";
 
 const router = Router();
 
-router.route('/:idEffetMagiqueInfos').get(getEffetMagiqueInfoById);
-router.route('/getAllInfosForEffetMagique/:idEffetMagique').get(getAllInfosForEffetMagique);
-router.route('/').post(addEffetMagiqueInfos);
-router.route('/:idEffetMagiqueInfos').put(updateEffetMagiqueInfos);
-router.route('/:idEffetMagiqueInfos').delete(deleteEffetMagiqueInfos);
+router.route('/:idEffetMagiqueInfos').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getEffetMagiqueInfoById);
+router.route('/getAllInfosForEffetMagique/:idEffetMagique').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllInfosForEffetMagique);
+router.route('/').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addEffetMagiqueInfos);
+router.route('/:idEffetMagiqueInfos').put(Auth.authorize(Auth.AccessRights.GAME_MASTER), updateEffetMagiqueInfos);
+router.route('/:idEffetMagiqueInfos').delete(Auth.authorize(Auth.AccessRights.GAME_MASTER), deleteEffetMagiqueInfos);
 
 export default router;

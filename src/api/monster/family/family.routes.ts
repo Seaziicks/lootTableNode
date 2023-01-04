@@ -6,18 +6,19 @@ import {
     getMonsterFamilyById,
     updateMonsterFamilyById
 } from "./family.controller";
+import * as Auth from "../../middlewares/auth.middleware";
 
 
 
 const router = Router();
 
-router.route('/').get(getAllMonsterFamilies);
-router.route('/complete').get(getAllCompleteMonstersFamilies);
-router.route('/:idFamilleMonstre').get(getMonsterFamilyById);
-router.route('/complete/:idFamilleMonstre').get(getCompleteMonsterFamilyById);
-router.route('/').post(addMonsterFamily);
-router.route('/:idFamilleMonstre').put(updateMonsterFamilyById);
-router.route('/:idFamilleMonstre').delete(deleteMonsterFamilyById);
+router.route('/').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllMonsterFamilies);
+router.route('/complete').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getAllCompleteMonstersFamilies);
+router.route('/:idFamilleMonstre').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getMonsterFamilyById);
+router.route('/complete/:idFamilleMonstre').get(Auth.authorize(Auth.AccessRights.GAME_MASTER), getCompleteMonsterFamilyById);
+router.route('/').post(Auth.authorize(Auth.AccessRights.GAME_MASTER), addMonsterFamily);
+router.route('/:idFamilleMonstre').put(Auth.authorize(Auth.AccessRights.GAME_MASTER), updateMonsterFamilyById);
+router.route('/:idFamilleMonstre').delete(Auth.authorize(Auth.AccessRights.GAME_MASTER), deleteMonsterFamilyById);
 
 
 export default router;
