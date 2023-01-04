@@ -1,4 +1,4 @@
-import {Request, RequestHandler, Response} from "express";
+import {RequestHandler, Response} from "express";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
 import * as CompetenceService from "./competence.services";
 import {
@@ -9,8 +9,6 @@ import {
     IUpdateCompetenceReq
 } from "./competence.model";
 import * as CompetenceContenuService from "./competenceContenu/competenceContenu.services";
-import {ICompetenceContenu} from "./competenceContenu/competenceContenu.model";
-import * as PersonnageService from "../personnage/personnage.services";
 
 // @ts-ignore
 export const getAllCompleteCompetencesForPersonnageByidPersonnage: RequestHandler = async (req: IGetAllCompetencesForPersonnageReq, res: Response) => {
