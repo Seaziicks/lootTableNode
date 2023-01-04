@@ -44,14 +44,22 @@ export const getPersonnagesAvailable = async () => {
     return execute<Personnage[]>(PersonnageQueries.GetPersonnagesAvailable, []);
 }
 
+/*
+ * Find if a personnage name is already used
+ */
+export const personnageNameExists = async (name: string) => {
+    return execute<Personnage[]>(PersonnageQueries.GetPersonnageByName, [
+        name
+    ]);
+}
+
 /**
  * adds a new active personnage record
  */
 export const addPersonnage = async (personnage: IPersonnage) => {
-    const result = await execute<{ affectedRows: number }>(PersonnageQueries.AddPersonnage, [
+    return await execute<{ affectedRows: number, insertId: number }>(PersonnageQueries.AddPersonnage, [
         personnage.nom, personnage.niveau, personnage.niveauEnAttente, personnage.deManaNaturel, personnage.deVitaliteNaturelle
     ]);
-    return result.affectedRows > 0;
 };
 
 /**

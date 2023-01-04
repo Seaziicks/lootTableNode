@@ -18,6 +18,11 @@ export const PersonnageQueries = {
          WHERE u.idUser = ?
          AND u.idPersonnage = p.idPersonnage`,
 
+    GetPersonnageByName:
+        `SELECT *
+         FROM personnage
+         WHERE LOWER(nom) = LOWER(?)`,
+
 
     AddPersonnage:
         `INSERT INTO personnage (nom, niveau, niveauEnAttente, deVitaliteNaturelle, deManaNaturel) 

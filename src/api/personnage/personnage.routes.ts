@@ -4,10 +4,11 @@ import {
     getAllPersonnagesWithStatistics,
     getPersonnageById,
     getPersonnagesAvailable,
-    getPersonnageWithStatistiquesById, updatePersonnage
+    getPersonnageWithStatistiquesById, personnageNameAvailable, updatePersonnage
 } from "./personnage.controller";
 import StatistiqueRoutes from './statistique/statistique.routes';
 import LevelRoutes from './level/level.routes';
+import * as Auth from "../middlewares/auth.middleware";
 
 const router = Router();
 
@@ -24,12 +25,13 @@ router.use('/statistique', StatistiqueRoutes);
 router.use('/level', LevelRoutes);
 router.route('/withStatistiques').get(getAllPersonnagesWithStatistics);
 router.route('/withStatistiques/:idPersonnage').get(getPersonnageWithStatistiquesById);
+router.route('/checkNameAvailable/:personnageName').get(personnageNameAvailable);
+router.route('/personnagesAvailable').get(getPersonnagesAvailable);
 router.route('/:idPersonnage').get(getPersonnageById);
 router.route('/').get(getAllPersonnages);
-router.route('/').post(addPersonnage)
-router.route('/:idPersonnage').patch(updatePersonnage)
-router.route('/:idPersonnage').delete(deletePersonnage)
 
-router.route('/personnagesAvailable').get(getPersonnagesAvailable);
+router.route('/').post(addPersonnage)
+router.route('/:idPersonnage').patch(Auth.authorize(Auth.AccessRights.GAME_MASTER), updatePersonnage)
+router.route('/:idPersonnage').delete(Auth.authorize(Auth.AccessRights.ADMIN), deletePersonnage)
 
 export default router;

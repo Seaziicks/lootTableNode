@@ -101,7 +101,7 @@ export const getAllPersonnagesWithStatistics: RequestHandler = async (req: IGetP
 // @ts-ignore
 export const getPersonnageByUserId: RequestHandler = async (req: IGetUserReq, res: Response) => {
     try {
-        const personnage = await PersonnageService.getPersonnageByUserId(req.params.id);
+        const personnage = await PersonnageService.getPersonnageByUserId(req.params.idUser);
 
         sendSpecialResponse(res,
             200,
@@ -138,6 +138,31 @@ export const getPersonnagesAvailable: RequestHandler = async (req: Request, res:
 }
 
 /**
+ * Find if a personnage name is already used
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */
+// @ts-ignore
+export const personnageNameAvailable: RequestHandler = async (req: Request, res: Response) => {
+    try {
+
+        const personnage = (await PersonnageService.personnageNameExists(req.params.personnageName))[0];
+        // console.log(personnage);
+
+        !personnage ?
+            sendSpecialResponse(res, 200, "Oh, ce serait un nouveau costume ?", '')
+        :
+            sendSpecialResponse(res, 409, "Cet avatar est déjà ... Hum ... Utilisé.", '');
+        // console.log(personnage);
+
+    } catch (error) {
+        console.error('[personnage.controller][personnageNameAvailable][Error]', typeof error === 'object' ? JSON.stringify(error) : error);
+        classicalSpecialResponseError500(res, "There was an error when fetching personnages");
+    }
+}
+
+/**
  * Add a personnage
  *
  * @param req IAddPersonnageReq
@@ -151,7 +176,7 @@ export const addPersonnage: RequestHandler = async (req: IAddPersonnageReq, res:
         sendSpecialResponse(res,
             201,
             "Vous êtes sûr de vouloir le prendre avec vous ? Eh bah bon courage.",
-            result);
+            result.affectedRows > 0);
     } catch (error) {
         console.error('[personnage.controller][addPersonnage][Error] ', typeof error === 'object' ? JSON.stringify(error) : error);
         classicalSpecialResponseError500(res, "There was an error when adding new personnage");
