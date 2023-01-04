@@ -83,18 +83,57 @@ class Item implements IItem {
     }
 
     // https://stackoverflow.com/questions/43431550/async-await-class-constructor
-    static async build(item: IItem) {
+    static async build(item: IItem, hidePossiblyThings: boolean) {
 
-        const materiau = (await getMateriauById(item.idMateriaux))[0] || null;
-        // console.log(materiau);
-        const malediction = (await getMaledictionById(item.idMalediction))[0] || null;
-        // console.log(malediction);
-        const effetsMagiques = (await getAllCompleteEffetMagiqueForItem(item.idObjet)) || null;
-        // console.log(effetMagique);
-        return new Item(item.idObjet, item.idPersonnage, item.nom, item.fauxNom, item.bonus, item.type, item.prix, item.prixNonHumanoide, item.devise, item.idMalediction,
+        let materiau = (await getMateriauById(item.idMateriaux))[0] || null;
+        let malediction = (await getMaledictionById(item.idMalediction))[0] || null;
+        let effetsMagiques = (await getAllCompleteEffetMagiqueForItem(item.idObjet)) || null;
+        
+        let returnedItem = new Item(item.idObjet, item.idPersonnage, item.nom, item.fauxNom, item.bonus, item.type, item.prix, item.prixNonHumanoide, item.devise, item.idMalediction,
             malediction, item.categorie, item.idMateriaux, materiau, item.taille, item.degats, item.critique, item.facteurPortee, item.armure,
             item.bonusDexteriteMax, item.malusArmureTests, item.risqueEchecSorts, item.solidite, item.resistance, item.afficherNom,
             item.afficherEffetMagique, item.afficherMalediction, item.afficherMateriau, item.afficherInfos, effetsMagiques);
+
+        if (hidePossiblyThings) {
+            returnedItem = Item.hideThingsForItem(returnedItem);
+        }
+
+        return returnedItem;
+    }
+
+    public static hideThingsForIItem(item: IItem): IItem {
+        if (!item.afficherNom)
+            item.nom = ''
+        if (!item.afficherInfos) {
+            item.prix = -1;
+            item.armure = -1;
+            item.taille = '';
+            item.resistance = -1;
+            item.solidite = -1;
+            item.bonus = -1;
+            item.degats = '';
+        }
+        return item;
+    }
+
+    public static hideThingsForItem(item: Item): Item {
+        Item.hideThingsForIItem(item);
+        if (!item.afficherMateriau)
+            item.materiau = {} as IMateriau;
+        // console.log(materiau);
+
+        if (!item.afficherMalediction)
+            item.malediction = {} as IMalediction;
+        // console.log(malediction);
+
+        if (!item.afficherEffetMagique)
+            item.effetMagique = [{}] as IEffetMagique[];
+        else if (!item.afficherInfos) {
+            for (let effetMagique of item.effetMagique) {
+                effetMagique.effetMagiqueInfos = [];
+            }
+        }
+        return item;
     }
 
     castToItemInterface(): IItem {
