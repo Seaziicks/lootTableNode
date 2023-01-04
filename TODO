@@ -1,8 +1,33 @@
 TODO en cours :
-    - Finir les items :
+    - Finir les competence :
         - A faire :
-            - Récupérer le nom d'un item grâce à l'ID.
+
+
+
+
+TODO Global:
+    - Faire en sorte d'avoir les bons droits d'accès partout (hasRightToAccess côté PHP).
+    - Vérifier la connexion.
+    - Faire les drop chances (?). ✔️
+    - Faire les loots. ✔️
+    - Faire les monstres. => Faire les familles avec. ✔️
+    - Faire les competences. ✔️
+    - Finir les users. ✔️
+    - Faire les niveaux / statistiques / montées de niveau / progression (définir comment un niveau doit être monté). ✔️
+    - Finir les personnages. ✔
+    - Finir les statistiques. ✔️
+    - Finir les effets magiques. ✔️
+    - Finir les items. ✔️
+    - Finir les malédictions. ✔️
+    - Finir les matériaux. ✔️
+    - Gérer la description que chaque personnage peut donner aux items, avec effetMagiqueDecouvert.php. ✔
+
+
+TODO Fini :
+    - Finir les items :
         - Déjà fini :
+            - Finir la classe Item, qui rajoute les effets magiques à l'objet // Utilisation de https://stackoverflow.com/questions/43431550/async-await-class-constructor
+            - Finir la classe Item, qui transforme les ids en matériau & malédiction // Utilisation de https://stackoverflow.com/questions/43431550/async-await-class-constructor
             - Récupérer uniquement les noms de tous les objets d'un joueur.
             - Récupérer uniquement les ids de tous les objets d'un joueur.
             - Récupérer tous les items.
@@ -11,17 +36,16 @@ TODO en cours :
             - Update un item grâce à l'ID.
             - Update le faux nom d'un item par ID.
             - Supprimer un item par ID.
-
-
-TODO Global:
-    - Finir les items.
-    - Finir les personnages.
-    - Finir les users.
-    - Faire les competences.
-    - Faire les loots.
-    - Faire les monstres. => Faire les familles avec.
-    - Faire les niveaux / statistiques / montées de niveau.
-    - Faire les matériaux / malédictions.
-    - Faire les drop chances (?).
-    - Vérifier la connexion.
-    - Gérer la description que chaque personnage peut donner aux items, avec effetMagiqueDecouvert.php.
+            - Récupérer le nom d'un item grâce à l'ID.
+    - Finir les dropChance :
+            - Gérer la possibilité de pourvoir ajouter plusieurs drop chance en même temps, en modifier plusieurs, et en supprimer plusieurs.
+                Soit on fait plusieurs requêtes, soit des requêtes multiples. les requêtes multiples sont un trou à sécurité.
+                https://stackoverflow.com/questions/8899802/how-do-i-do-a-bulk-insert-in-mysql-using-node-js
+                https://github.com/mysqljs/mysql#multiple-statement-queries
+                => Solution : Ajout avec une seule requête, update et delete avec multiples requêtes.
+    - Finir les competence :
+            - Fait :
+                - Mettre à disposition ne nombre de points de compétences disponible pour le joueur.
+            - A NE PAS faire ❎ :
+                - Permettre de monter le niveau d'une compétence. ❎
+                    => La librairie beautifulskilltree ne gère pas les niveaux. Ce sera au MJ de monter manuellement le niveau, en allant modifier la compétence.
