@@ -19,7 +19,15 @@ import * as EffetMagiqueDecouvertService from "./effetMagiqueDecouvert.services"
 export const getEffetMagiqueDecouvertById: RequestHandler = async (req: IGetEffetMagiqueDecouvertReq, res: Response) => {
     try {
 
-        const effetMagiqueDecouvert = await EffetMagiqueDecouvertService.getEffetMagiqueDecouvertById(req.params.idEffetMagiqueDecouvert);
+        const effetMagiqueDecouvert = (await EffetMagiqueDecouvertService.getEffetMagiqueDecouvertById(req.params.idEffetMagiqueDecouvert))[0];
+
+        if (effetMagiqueDecouvert.idPersonnage !== res.locals.token.idPersonnage && !res.locals.token.isGameMaster && res.locals.token.isAdmin) {
+            sendSpecialResponse(res,
+                406,
+                "Ce doit être la personne qui a écrite cette informations, pas vous !",
+                '');
+            return;
+        }
 
         sendSpecialResponse(res,
             200,
@@ -84,6 +92,15 @@ export const getAllEffetMagiqueDecouvertForItem: RequestHandler = async (req: IG
 // @ts-ignore
 export const addEffetMagiqueDecouvert: RequestHandler = async (req: IAddEffetMagiqueDecouvertReq, res: Response) => {
     try {
+
+        if (req.body.idPersonnage !== res.locals.token.idPersonnage && !res.locals.token.isGameMaster && res.locals.token.isAdmin) {
+            sendSpecialResponse(res,
+                406,
+                "N'essayez pas de le bercer d'illusions ...",
+                '');
+            return;
+        }
+
         const result = await EffetMagiqueDecouvertService.addEffetMagiqueDecouvert(req.body);
 
         sendSpecialResponse(res,
@@ -105,6 +122,17 @@ export const addEffetMagiqueDecouvert: RequestHandler = async (req: IAddEffetMag
 // @ts-ignore
 export const updateEffetMagiqueDecouvert: RequestHandler = async (req: IUpdateEffetMagiqueDecouvertReq, res: Response) => {
     try {
+
+        const effetMagiqueDecouvert = (await EffetMagiqueDecouvertService.getEffetMagiqueDecouvertById(req.params.idEffetMagiqueDecouvert))[0];
+
+        if (effetMagiqueDecouvert.idPersonnage !== res.locals.token.idPersonnage && !res.locals.token.isGameMaster && res.locals.token.isAdmin) {
+            sendSpecialResponse(res,
+                406,
+                "Vous voulez modifier ses croyances ? Je ne vous en laisse pas le droit.",
+                '');
+            return;
+        }
+
         const result = await EffetMagiqueDecouvertService.updateEffetMagiqueDecouvert({ ...req.body, idEffetMagiqueDecouvert: req.params.idEffetMagiqueDecouvert });
 
         sendSpecialResponse(res,
@@ -126,6 +154,16 @@ export const updateEffetMagiqueDecouvert: RequestHandler = async (req: IUpdateEf
 // @ts-ignore
 export const deleteEffetMagiqueDecouvert: RequestHandler = async (req: IDeleteEffetMagiqueDecouvertReq, res: Response) => {
     try {
+
+        const effetMagiqueDecouvert = (await EffetMagiqueDecouvertService.getEffetMagiqueDecouvertById(req.params.idEffetMagiqueDecouvert))[0];
+
+        if (effetMagiqueDecouvert.idPersonnage !== res.locals.token.idPersonnage && !res.locals.token.isGameMaster && res.locals.token.isAdmin) {
+            sendSpecialResponse(res,
+                406,
+                "N'essayez pas de le bercer d'illusions ...",
+                '');
+            return;
+        }
         const result = await EffetMagiqueDecouvertService.deleteEffetMagiqueDecouvert(req.params.idEffetMagiqueDecouvert);
 
         sendSpecialResponse(res,
