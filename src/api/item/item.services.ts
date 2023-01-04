@@ -141,9 +141,9 @@ export const deleteItem = async (idObjet: IItem['idObjet']) => {
     return result.affectedRows > 0;
 };
 
-/**
- * Gets an item, complete with materiau, malediction & effetMagique fulfilled
- */
-export const getCompleteItem = async (idObjet: IItem['idObjet']) => {
-    return await Item.build((await getItemById(idObjet))[0]);
-};
+// /**
+//  * Gets an item, complete with materiau, malediction & effetMagique fulfilled
+//  */
+// export const getCompleteItem = async (idObjet: IItem['idObjet'], hidePossiblyThings: boolean) => {
+//     return await Item.build((await getItemById(idObjet))[0], hidePossiblyThings);
+// };

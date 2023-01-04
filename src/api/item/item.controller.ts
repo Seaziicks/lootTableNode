@@ -9,6 +9,8 @@ import {RequestHandler, Request, Response} from "express";
 import {IGetPersonnageReq} from "../personnage/personnage.model";
 import * as CustomErrors from "../utils/customErrors";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
+import {TokenPayload} from "../utils/jwt.utils";
+import Item from "../../../models/Item";
 
 /**
  * Get active item records
@@ -40,7 +42,13 @@ export const getItems: RequestHandler = async (req: Request, res: Response) => {
 // @ts-ignore
 export const getItemById: RequestHandler = async (req: IGetItemReq, res: Response) => {
     try {
-        const item = await ItemService.getItemById(req.params.idObjet);
+
+        const hidePossiblyThings = !(res.locals.token as TokenPayload).isGameMaster && !(res.locals.token as TokenPayload).isAdmin;
+
+        const item = (await ItemService.getItemById(req.params.idObjet))[0];
+        if (hidePossiblyThings) {
+            Item.hideThingsForIItem(item);
+        }
 
         sendSpecialResponse(res,
             200,
@@ -61,7 +69,15 @@ export const getItemById: RequestHandler = async (req: IGetItemReq, res: Respons
 // @ts-ignore
 export const getItemNameOnlyById: RequestHandler = async (req: IGetItemReq, res: Response) => {
     try {
-        const item = await ItemService.getItemNameOnlyById(req.params.idObjet);
+
+        const hidePossiblyThings = !(res.locals.token as TokenPayload).isGameMaster && !(res.locals.token as TokenPayload).isAdmin;
+
+        const item = (await ItemService.getItemNameOnlyById(req.params.idObjet))[0];
+        if (hidePossiblyThings) {
+            if (!item.afficherNom) {
+                item.nom = '';
+            }
+        }
 
         sendSpecialResponse(res,
             200,
@@ -228,13 +244,15 @@ export const deleteItemById: RequestHandler = async (req: IDeleteItemReq, res: R
 /**
  * Gets an item, complete with materiau, malediction & effetMagique fulfilled
  *
- * @param req Express Request
+ * @param req IGetItemReq
  * @param res Express Response
  */
 // @ts-ignore
 export const getCompleteItem: RequestHandler = async (req: IGetItemReq, res: Response) => {
     try {
-        const result = await ItemService.getCompleteItem(req.params.idObjet);
+        const hidePossiblyThings = !(res.locals.token as TokenPayload).isGameMaster && !(res.locals.token as TokenPayload).isAdmin;
+        // const result = await ItemService.getCompleteItem(req.params.idObjet, !(res.locals.token as TokenPayload).isGameMaster && !(res.locals.token as TokenPayload).isAdmin);
+        const result = await Item.build((await ItemService.getItemById(req.params.idObjet))[0], hidePossiblyThings);
 
         res.status(200).json({
             result
