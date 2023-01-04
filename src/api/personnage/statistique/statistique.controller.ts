@@ -1,6 +1,6 @@
 import {RequestHandler, Response} from "express";
 import {IGetPersonnageReq} from "../personnage.model";
-import * as StatistiqueService from "./statistique.service";
+import * as StatistiqueService from "./statistique.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import {IAddStatistiqueReq, IDeleteStatistiqueReq, IUpdateStatistiqueReq} from "./statistique.model";
 

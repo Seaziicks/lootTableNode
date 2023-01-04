@@ -1,6 +1,6 @@
 import {IPersonnage} from "../src/api/personnage/personnage.model";
 import * as PersonnageService from "../src/api/personnage/personnage.services";
-import * as StatistiqueService from "../src/api/personnage/statistique/statistique.service";
+import * as StatistiqueService from "../src/api/personnage/statistique/statistique.services";
 
 class Personnage implements IPersonnage {
     idPersonnage: number;

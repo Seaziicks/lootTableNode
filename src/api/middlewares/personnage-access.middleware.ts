@@ -1,7 +1,6 @@
 import {NextFunction, Request, Response} from "express";
 import {TokenPayload, validateToken} from "../utils/jwt.utils";
-import {AccessRights} from "./auth.middleware";
-import * as ItemService from "../item/item.servive";
+import * as ItemService from "../item/item.services";
 import {IGetItemReq} from "../item/item.model";
 
 /**

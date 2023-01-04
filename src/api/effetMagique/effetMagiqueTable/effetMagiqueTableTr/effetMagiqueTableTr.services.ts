@@ -5,7 +5,7 @@ import {execute} from "../../../utils/mysql.connector";
 import {
     addEffetMagiqueTableTrContent,
     getAllTrContentForEffetMagiqueTableTr
-} from "./effetMagiqueTableTrContent/effetMagiqueTableTrContent.service";
+} from "./effetMagiqueTableTrContent/effetMagiqueTableTrContent.services";
 
 /**
  * gets effet magique table tr  by id

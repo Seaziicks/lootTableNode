@@ -1,6 +1,6 @@
 import {RequestHandler, Response} from "express";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
-import * as MaledictionService from "./malediction.service";
+import * as MaledictionService from "./malediction.services";
 import {
     IAddMaledictionReq,
     IDeleteMaledictionReq,

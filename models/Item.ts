@@ -3,10 +3,10 @@ import {
 } from '../src/api/item/item.model';
 import {IMalediction} from "../src/api/malediction/malediction.model";
 import {IMateriau} from "../src/api/materiau/materiau.model";
-import {getMateriauById} from "../src/api/materiau/materiau.service";
-import {getMaledictionById} from "../src/api/malediction/malediction.service";
+import {getMateriauById} from "../src/api/materiau/materiau.services";
+import {getMaledictionById} from "../src/api/malediction/malediction.services";
 import {IEffetMagique} from "../src/api/effetMagique/effetMagique.model";
-import {getAllCompleteEffetMagiqueForItem} from "../src/api/effetMagique/effetMagique.service";
+import {getAllCompleteEffetMagiqueForItem} from "../src/api/effetMagique/effetMagique.services";
 
 class Item implements IItem {
     public idObjet: number;

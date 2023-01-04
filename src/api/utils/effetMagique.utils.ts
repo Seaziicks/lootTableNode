@@ -1,8 +1,7 @@
-import * as EffetMagiqueDescriptionService from "../effetMagique/effetMagiqueDescription/effetMagiqueDescription.service";
-import * as EffetMagiqueTableService from "../effetMagique/effetMagiqueTable/effetMagiqueTable.service";
-import * as EffetMagiqueUlService from "../effetMagique/effetMagiqueUl/effetMagiqueUl.service";
+import * as EffetMagiqueDescriptionService from "../effetMagique/effetMagiqueDescription/effetMagiqueDescription.services";
+import * as EffetMagiqueTableService from "../effetMagique/effetMagiqueTable/effetMagiqueTable.services";
+import * as EffetMagiqueUlService from "../effetMagique/effetMagiqueUl/effetMagiqueUl.services";
 import {IEffetMagiqueDescription} from "../effetMagique/effetMagiqueDescription/effetMagiqueDescription.model";
-import {IEffetMagiqueUl} from "../effetMagique/effetMagiqueUl/effetMagiqueUl.model";
 
 /**
  * This function is made to update table and ul position on description deletion, for an effet magique.

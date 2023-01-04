@@ -1,6 +1,6 @@
 import {RequestHandler, Response} from "express";
 import {IGetPersonnageReq, IPersonnage} from "../personnage.model";
-import * as LevelService from "./level.service";
+import * as LevelService from "./level.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import {
     getNaturalManaFromPersonnageAndLevel,
@@ -13,7 +13,7 @@ import {
 } from "./level.model";
 import * as PersonnageService from "../personnage.services";
 import {IProgression} from "./progression/progression.model";
-import * as ProgressionService from "./progression/progression.service";
+import * as ProgressionService from "./progression/progression.services";
 import Personnage from "../../../../models/Personnage";
 
 

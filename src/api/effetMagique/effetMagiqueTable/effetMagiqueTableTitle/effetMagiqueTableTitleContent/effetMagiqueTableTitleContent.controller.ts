@@ -7,7 +7,7 @@ import {
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../../../routes";
 import {RequestHandler,Response} from "express";
 import {IGetEffetMagiqueTableTitleReq} from "../effetMagiqueTableTitle.model";
-import * as EffetMagiqueTableTitleContentService from "./effetMagiqueTableTitleContent.service";
+import * as EffetMagiqueTableTitleContentService from "./effetMagiqueTableTitleContent.services";
 
 /**
  * Get effet magique ul content from id

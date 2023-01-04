@@ -1,6 +1,6 @@
 import {Request, RequestHandler, Response} from "express";
-import * as ProgressionService from "./progression.service";
-import * as LevelService from "../level.service";
+import * as ProgressionService from "./progression.services";
+import * as LevelService from "../level.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../../routes";
 import {
     IAddProgressionReq,

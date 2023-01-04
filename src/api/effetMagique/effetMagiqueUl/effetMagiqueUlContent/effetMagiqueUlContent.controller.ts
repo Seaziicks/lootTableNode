@@ -6,7 +6,7 @@ import {
 } from "./effetMagiqueUlContent.model";
 import {RequestHandler, Response} from "express";
 import {IGetEffetMagiqueUlReq} from "../effetMagiqueUl.model";
-import * as EffetMagiqueUlContentService from "./effetMagiqueUlContent.service";
+import * as EffetMagiqueUlContentService from "./effetMagiqueUlContent.services";
 
 /**
  * Get effet magique ul content from id

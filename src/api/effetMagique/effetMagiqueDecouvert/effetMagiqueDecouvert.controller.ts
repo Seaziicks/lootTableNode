@@ -6,7 +6,7 @@ import {
 } from "./effetMagiqueDecouvert.model";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import {RequestHandler,Response} from "express";
-import * as EffetMagiqueDecouvertService from "./effetMagiqueDecouvert.service";
+import * as EffetMagiqueDecouvertService from "./effetMagiqueDecouvert.services";
 
 /**
  * Get effet magique decouvert from id

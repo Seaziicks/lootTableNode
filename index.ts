@@ -3,14 +3,13 @@ import 'dotenv/config';
 import compression from 'compression';
 import helmet from 'helmet';
 import cors from 'cors';
-import {generateTestToken, generateToken} from './src/api/utils/jwt.utils';
+import {generateTestToken} from './src/api/utils/jwt.utils';
 import * as path from 'path';
 import routes from './src/api/routes';
 import logger from './src/api/middlewares/logger.middleware';
 // import errorHandler from './src/api/middlewares/error-handler.middleware';
 // import * as MySQLConnector from './database';
 import * as MySQLConnector from './src/api/utils/mysql.connector';
-import {log} from "util";
 
 
 

@@ -6,17 +6,17 @@ import {
     addCompleteEffetMagiqueUl,
     getAllCompleteUlForEffetMagique,
     getAllUlForEffetMagique
-} from "./effetMagiqueUl/effetMagiqueUl.service";
+} from "./effetMagiqueUl/effetMagiqueUl.services";
 import {
     addEffetMagiqueDescription,
     getAllDescriptionForEffetMagique
-} from "./effetMagiqueDescription/effetMagiqueDescription.service";
+} from "./effetMagiqueDescription/effetMagiqueDescription.services";
 import {
     addCompleteEffetMagiqueTable,
     getAllCompleteTableForEffetMagique,
     getAllTableForEffetMagique
-} from "./effetMagiqueTable/effetMagiqueTable.service";
-import {addEffetMagiqueInfos, getAllInfosForEffetMagique} from "./effetMagiqueInfos/effetMagiqueInfos.service";
+} from "./effetMagiqueTable/effetMagiqueTable.services";
+import {addEffetMagiqueInfos, getAllInfosForEffetMagique} from "./effetMagiqueInfos/effetMagiqueInfos.services";
 
 /**
  * gets effet magique

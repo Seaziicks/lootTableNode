@@ -6,7 +6,7 @@ import {
     IUpdateEffetMagiqueDescriptionReq
 } from "./effetMagiqueDescription.model";
 import {IGetEffetMagiqueReq} from "../effetMagique.model";
-import * as EffetMagiqueDescriptionService from "./effetMagiqueDescription.service";
+import * as EffetMagiqueDescriptionService from "./effetMagiqueDescription.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import * as EffetMagiqueUtils from "../../utils/effetMagique.utils";
 

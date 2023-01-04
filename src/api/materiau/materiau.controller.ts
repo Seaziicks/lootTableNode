@@ -1,7 +1,7 @@
 import {RequestHandler, Response} from "express";
 import {IAddMateriauReq, IDeleteMateriauReq, IGetMateriauReq, IUpdateMateriauReq} from "./materiau.model";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../routes";
-import * as MateriauService from './materiau.service';
+import * as MateriauService from './materiau.services';
 
 
 /**

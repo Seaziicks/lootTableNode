@@ -7,7 +7,7 @@ import {
     IUpdateEffetMagiqueReq
 } from "./effetMagique.model";
 import {IGetItemReq} from "../item/item.model";
-import * as EffetMagiqueService from "./effetMagique.service";
+import * as EffetMagiqueService from "./effetMagique.services";
 
 /**
  * Get effet magique from id

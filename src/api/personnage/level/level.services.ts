@@ -1,8 +1,8 @@
 import {IStatistiqueParNiveau, Level} from "./level.model";
 import {execute} from "../../utils/mysql.connector";
 import {LevelQueries} from "./level.queries";
-import * as StatistiqueService from '../statistique/statistique.service';
-import {getStatistiquesIdLibelle} from "../statistique/statistique.service";
+import * as StatistiqueService from '../statistique/statistique.services';
+import {getStatistiquesIdLibelle} from "../statistique/statistique.services";
 import {IPersonnage} from "../personnage.model";
 
 /**

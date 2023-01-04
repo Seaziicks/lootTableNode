@@ -3,7 +3,7 @@ import {IMalediction} from "./malediction.model";
 import {MaledictionQueries} from "./malediction.queries";
 
 /**
- * gets effet magique description
+ * gets a malediction by id
  */
 export const getMaledictionById = async (idMalediction: IMalediction['idMalediction']) => {
     return execute<IMalediction[]>(MaledictionQueries.GetMaledictionById, [idMalediction]);
@@ -11,7 +11,7 @@ export const getMaledictionById = async (idMalediction: IMalediction['idMaledict
 
 
 /**
- * adds a new effetMagiqueDescription, a new description to effet magique
+ * adds a new malediction
  */
 export const addMalediction = async (malediction: IMalediction) => {
     const result = await execute<{ affectedRows: number }>(MaledictionQueries.AddMalediction, [
@@ -21,7 +21,7 @@ export const addMalediction = async (malediction: IMalediction) => {
 };
 
 /**
- * updates effet magique description based on the id provided
+ * updates malediction based on the id provided
  */
 export const updateMalediction = async (malediction: IMalediction) => {
     const result = await execute<{ affectedRows: number }>(MaledictionQueries.UpdateMaledictionById, [
@@ -31,7 +31,7 @@ export const updateMalediction = async (malediction: IMalediction) => {
 };
 
 /**
- * delete effet magique description based on the id provided
+ * delete malediction based on the id provided
  */
 export const deleteMalediction = async (idMalediction: IMalediction['idMalediction']) => {
     const result = await execute<{ affectedRows: number }>(MaledictionQueries.DeleteMaledictionById, [

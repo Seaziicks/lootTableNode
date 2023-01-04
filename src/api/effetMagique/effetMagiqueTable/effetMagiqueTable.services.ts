@@ -6,11 +6,11 @@ import {IEffetMagiqueTable} from "./effetMagiqueTable.model";
 import {
     addCompleteEffetMagiqueTableTr,
     getAllCompleteTrForEffetMagiqueTable
-} from "./effetMagiqueTableTr/effetMagiqueTableTr.service";
+} from "./effetMagiqueTableTr/effetMagiqueTableTr.services";
 import {
     addCompleteEffetMagiqueTableTitle,
     getAllCompleteTitleForEffetMagiqueTable
-} from "./effetMagiqueTableTitle/effetMagiqueTableTitle.service";
+} from "./effetMagiqueTableTitle/effetMagiqueTableTitle.services";
 
 /**
  * gets effet magique ul  by id

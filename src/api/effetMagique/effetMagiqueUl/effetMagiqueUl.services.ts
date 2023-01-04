@@ -6,7 +6,7 @@ import {IEffetMagique} from "../effetMagique.model";
 import {
     addEffetMagiqueUlContent,
     getAllUlContentForEffetMagiqueUl
-} from "./effetMagiqueUlContent/effetMagiqueUlContent.service";
+} from "./effetMagiqueUlContent/effetMagiqueUlContent.services";
 
 /**
  * gets effet magique ul  by id

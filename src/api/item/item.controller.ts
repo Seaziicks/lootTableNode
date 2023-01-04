@@ -4,7 +4,7 @@ import {
     IUpdateItemReq,
     IDeleteItemReq
 } from "./item.model";
-import * as ItemService from './item.servive';
+import * as ItemService from './item.services';
 import {RequestHandler, Request, Response} from "express";
 import {IGetPersonnageReq} from "../personnage/personnage.model";
 import * as CustomErrors from "../utils/customErrors";

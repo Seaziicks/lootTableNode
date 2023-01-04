@@ -5,7 +5,7 @@ import {IPersonnage} from "../personnage/personnage.model";
 import Item from "../../../models/Item";
 import {MaledictionQueries} from "../malediction/malediction.queries";
 import {MateriauQueries} from "../materiau/materiau.queries";
-import * as EffetMagiqueService from "../effetMagique/effetMagique.service";
+import * as EffetMagiqueService from "../effetMagique/effetMagique.services";
 
 /**
  * gets active items

@@ -1,5 +1,5 @@
 import {RequestHandler, Response} from "express";
-import * as EffetMagiqueInfosService from "./effetMagiqueInfos.service";
+import * as EffetMagiqueInfosService from "./effetMagiqueInfos.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import {
     IAddEffetMagiqueInfoReq,
@@ -8,12 +8,6 @@ import {
     IUpdateEffetMagiqueInfoReq
 } from "./effetMagiqueInfos.model";
 import {IGetEffetMagiqueReq} from "../effetMagique.model";
-import {
-    IAddEffetMagiqueDescriptionReq, IDeleteEffetMagiqueDescriptionReq, IEffetMagiqueDescription,
-    IUpdateEffetMagiqueDescriptionReq
-} from "../effetMagiqueDescription/effetMagiqueDescription.model";
-import * as EffetMagiqueDescriptionService from "../effetMagiqueDescription/effetMagiqueDescription.service";
-import * as EffetMagiqueUtils from "../../utils/effetMagique.utils";
 
 /**
  * Get effet magique infos from id

@@ -1,5 +1,5 @@
 import {RequestHandler, Response} from "express";
-import * as EffetMagiqueTableService from "./effetMagiqueTable.service";
+import * as EffetMagiqueTableService from "./effetMagiqueTable.services";
 import {classicalSpecialResponseError500, sendSpecialResponse} from "../../routes";
 import {IGetEffetMagiqueReq} from "../effetMagique.model";
 import {
