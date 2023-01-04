@@ -1,15 +1,18 @@
-import {sign, SignOptions, verify, VerifyOptions} from 'jsonwebtoken';
+import {JwtPayload, Secret, sign, SignOptions, verify, VerifyErrors, VerifyOptions} from 'jsonwebtoken';
 import * as fs from 'fs';
 import * as path from 'path';
 import Personnage from '../../../models/Personnage';
 import {IUser} from "../user/user.model";
 
-export interface TokenPayload {
+export interface TokenPayload extends JwtPayload{
+    iat: number;
+    iss: string;
     exp: number;
     username: string;
     idUser: number;
     isGameMaster: boolean;
     isAdmin: boolean;
+    idPersonnage: number;
     personnage: Personnage;
 }
 
@@ -20,19 +23,20 @@ export async function generateToken(iUser: IUser) {
 
     const issuedAt = new Date(Date.now());
     const serverName = "BaichooFactoryApi";
-    const exp = addMinutes(issuedAt, 7);
+    const exp = addMinutes(issuedAt, 60);
 
     console.log(iUser);
 
-    // information to be encoded in the JWT
-    const payload = {
+    // information to be encoded in the JWT. Don't use nbf, a lot of trouble for nothing.
+    const payload: TokenPayload = {
         iat: issuedAt.valueOf(),
         iss: serverName,
         exp: exp.valueOf(),
-        username: iUser.username,
         idUser: iUser.idUser,
+        username: iUser.username,
         isGameMaster: iUser.isGameMaster,
         isAdmin: iUser.isAdmin,
+        idPersonnage: iUser.idPersonnage,
         personnage: await Personnage.getPersonnageFromIdUser(iUser.idUser)
     };
 
@@ -52,7 +56,7 @@ export async function generateToken(iUser: IUser) {
 
     // generate JWT
     return sign(payload, privateKey, signInOptions);
-};
+}
 
 /**
  * generates JWT used for local testing
@@ -65,7 +69,7 @@ export async function generateTestToken(){
 
 
     // information to be encoded in the JWT
-    const payload = {
+    const payload: TokenPayload = {
         iat: issuedAt.valueOf(),
         iss: serverName,
         exp: exp.valueOf(),
@@ -73,6 +77,7 @@ export async function generateTestToken(){
         idUser: 1,
         isGameMaster: false,
         isAdmin: true,
+        idPersonnage: 1,
         personnage: await Personnage.getPersonnageFromIdUser(1)
     };
 
@@ -84,15 +89,13 @@ export async function generateTestToken(){
 
     const signInOptions: SignOptions = {
         // RS256 uses a public/private key pair. The API provides the private key
-        // to generate the JWT. The client gets a public key to validate the
-        // signature
+        // to generate the JWT. The client gets a public key to validate the signature
         algorithm: 'RS256',
-        // expiresIn: '1h',
     };
 
     // generate JWT
     return sign(payload, privateKey, signInOptions);
-};
+}
 
 /**
  * checks if JWT token is valid
@@ -100,17 +103,20 @@ export async function generateTestToken(){
  * @param token the expected token payload
  */
 export function validateToken(token: string): Promise<TokenPayload> {
-    const publicKey = fs.readFileSync(path.join(__dirname, './../../../public.key'));
+    const publicKey = fs.readFileSync(path.join(__dirname, './../../../public.key')) as Secret;
 
     const verifyOptions: VerifyOptions = {
         algorithms: ['RS256'],
     };
-
+    // console.log("=================================================");
+    // console.log("||           Je suis passé par ici !           ||");
+    // console.log("=================================================");
     return new Promise((resolve, reject) => {
-        // @ts-ignore
-        verify(token, publicKey, verifyOptions, (error, decoded: TokenPayload) => {
+
+        verify(token, publicKey, verifyOptions, <TokenPayload>(error: VerifyErrors | null, decoded: TokenPayload) => {
             if (error)
                 return reject(error);
+            // @ts-ignore
             resolve(decoded);
         })
     });
