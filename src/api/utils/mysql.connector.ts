@@ -44,6 +44,8 @@ export const init = () => {
  * @param {string} query - provide a valid SQL query
  * @param {string[] | Object} params - provide the parameterized values used
  * in the query
+ * ResultSetHeader contains affectedRows, insertId and others, from the query method
+ *      => Follow query declaration, from pool.query bellow, and then ResultSetHeader declaration (Ctrl + b)
  */
 export const execute = <T>(query: string, params: string[] | Object): Promise<T> => {
     try {
